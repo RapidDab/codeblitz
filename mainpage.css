@@ -30,8 +30,13 @@ body {
     text-decoration: none;
 }
 #maintext{
+    display: flex;
     font-size: 15px;
     width: 800px; 
     margin:100px auto; 
     background-color: beige;
+}
+#word {
+    font-size: 1em;
+    line-height: 1em;
 }
