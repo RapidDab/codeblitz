@@ -2,10 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #373C3F;
     
 }
 .navbar {
-    background-color: rgb(97, 99, 99);
+    background-color: #373C3F;
     border-radius: 15px;
     display: flex;
     overflow: hidden;
@@ -13,7 +14,7 @@ body {
 }
 .navbar a {
     display: block;
-    color: rgb(0, 0, 0);
+    color: #FFFFFF;
     padding: 15px 20px;
     text-decoration: none;
 }
@@ -29,14 +30,19 @@ body {
     text-align: center;
     text-decoration: none;
 }
+#icons {
+    margin-top: 3px;
+}
 #maintext{
     display: flex;
     font-size: 15px;
-    width: 800px; 
+    width: 850px; 
     margin:100px auto; 
-    background-color: beige;
+    background-color: #373C3F;
 }
 #word {
-    font-size: 1em;
-    line-height: 1em;
+    font-family: 'Courier New', Courier, monospace;
+    color: #dad9d8;
+    font-size: 20px;
+    line-height: 1.5em;
 }
