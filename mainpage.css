@@ -7,42 +7,88 @@ body {
 }
 .navbar {
     background-color: #373C3F;
-    border-radius: 15px;
+    border-radius: 25px;
+    height:40px;
     display: flex;
     overflow: hidden;
     margin: 25px 100px
 }
+.language {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    height: 45px;
+    top: 28%;
+    left: 45%;
+    right: 45%;
+}
+.language  {
+    font-size: 20px;
+    font-family: monospace;
+    color: #dad9d8;
+    margin-top: -2px;
+}
 .navbar a {
     display: block;
     color: #FFFFFF;
-    padding: 15px 20px;
+    padding: 13px 20px;
     text-decoration: none;
-}
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
 }
 .navbar .logo {
     display: block;
-    padding-top: 12px;
+    padding-top: 10px;
     font-size: 20px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
 }
+footer{
+    display: flex;
+    height: 45px;
+    left: 30%;
+    right: 30%;
+    justify-content:center;
+    background-color: #373C3F;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0px;
+}
+footer #highlight {
+    border-radius: 5px;
+    color: rgb(26, 25, 25);
+    background-color:#dad9d8
+}
+footer p {
+    font-family: monospace;
+    font-size: 14px;
+    color: #dad9d8;
+    padding: 2px;
+    margin-left:2px;
+    margin-right: 3px;
+    margin-bottom: 10px;
+}
+
 #icons {
     margin-top: 3px;
+    scale: 2px;
+}
+#icons i:hover {    
+    color: rgb(82, 82, 82);
 }
 #maintext{
+    position: absolute;
+    left: 50%;
+    top: 47%;
+    transform: translate(-50%, -50%);
     display: flex;
-    font-size: 15px;
-    width: 850px; 
-    margin:100px auto; 
+    font-size: 20px;
+    width: 1000px; 
+    margin: auto; 
     background-color: #373C3F;
 }
 #word {
     font-family: 'Courier New', Courier, monospace;
     color: #dad9d8;
-    font-size: 20px;
+    font-size: 23px;
     line-height: 1.5em;
 }
