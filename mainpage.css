@@ -20,13 +20,30 @@ body {
     left: 0%;
     right: 0%;
 }
+@keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        
+    }
+}
 #typer {
     position:absolute;
-    width: 2px;
+    width: 3px;
     height: 25px;
     left: 460px;
     justify-content: center;
     background-color: white;
+    opacity: 1;
+    animation: flickerAnimation;
+    animation-duration: 0.9s;
+    animation-iteration-count: infinite;
+        
 }
 .language  {
     font-size: 20px;

@@ -39,6 +39,14 @@ const game = new Game();
 game.createMainText();
 game.setUpAssets();
 
+window.addEventListener("keydown", isTyping)
+window.addEventListener("keyup", notTyping)
+function isTyping (){
+    game.typer.style.animationPlayState = "paused"
+}
+function notTyping (){
+    game.typer.style.animationPlayState = "running"
+}
 
 
 
