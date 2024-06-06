@@ -7,8 +7,8 @@ class Game {
     }
     createMainText() {
         var t = [];
-        const div = document.createElement("div");
-        div.setAttribute("id", "word");
+        let div = "";
+        let p = ""
         fetch("words.txt")
             .then(function (res) {
                 return res.text();
@@ -16,12 +16,29 @@ class Game {
             .then(function (data) {
                 let text = data.toString().split("\n");
                 for (let i = 0; i < text.length; i++) {
-                    let node2 = document.createTextNode(text[i] + " ");
-                    div.appendChild(node2);
-                    t.push(text[i]);
+                    div = document.createElement("div");
+                    div.setAttribute("id", "word");
+                    console.log(text[i]);
+                    for (let k = 0; k < text[i].length; k++) {
+                        console.log(text[i][k]);
+                        p = document.createElement("p");
+                        p.style.display = "inline";
+                        p.innerHTML = text[i][k];
+                        div.appendChild(p)
+                    }
+                    p = document.createElement("p");
+                    p.style.display = "inline";
+                    p.innerHTML = "&nbsp";                
+                    div.appendChild(p)
+                    game.text.appendChild(div)
                 }
+            //     // for (let i = 0; i < text.length; i++) {
+            //     //     // let node2 = document.createTextNode(text[i] + " ");
+            //     //     // div.appendChild(node2);
+            //     //     // t.push(text[i]);
+            //     // }
             });
-        this.text.appendChild(div);
+        // this.text.appendChild(div);
     }
     setUpAssets () {
         function resize() {
@@ -39,14 +56,7 @@ const game = new Game();
 game.createMainText();
 game.setUpAssets();
 
-window.addEventListener("keydown", isTyping)
-window.addEventListener("keyup", notTyping)
-function isTyping (){
-    game.typer.style.animationPlayState = "paused"
-}
-function notTyping (){
-    game.typer.style.animationPlayState = "running"
-}
+// game.text.children.style.fontSize = '25px';
 
 
 
