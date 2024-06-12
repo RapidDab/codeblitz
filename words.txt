@@ -1,56 +1,6 @@
-a
-abandon
-ability
-able
-abortion
-about
-above
-abroad
-absence
-absolute
-absolutelyw
-absorb
-abuse
-academic
-a
-abandon
-ability
-able
-abortion
-about
-above
-abroad
-absence
-absolute
-absolutelyw
-absorb
-abuse
-academic
-a
-abandon
-ability
-able
-abortion
-about
-above
-abroad
-absence
-absolute
-absolutelyw
-absorb
-abuse
-academic
-a
-abandon
-ability
-able
-abortion
-about
-above
-abroad
-absence
-absolute
-absolutelyw
-absorb
-abuse
-academic
+# Iterating over a String
+print("String Iteration")
+
+s = "Geeks"
+for i in s:pytho
+    print(i)

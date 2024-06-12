@@ -5,13 +5,33 @@ body {
     background-color: #373C3F;
     
 }
+@keyframes fadIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
 .navbar {
+    opacity: 1;
     background-color: #373C3F;
     border-radius: 25px;
     height:40px;
     display: flex;
     overflow: hidden;
-    margin: 25px 100px
+    margin: 25px 100px;
+    animation: fadOut;
+    animation-duration: 0.2s;
+    animation-play-state: paused;
 }
 .language {
     display: flex;
@@ -19,6 +39,9 @@ body {
     position: absolute;
     left: 0%;
     right: 0%;
+    animation: fadOut;
+    animation-duration: 0.2s;
+    animation-play-state: paused;
 }
 @keyframes flickerAnimation {
     0% {
@@ -36,19 +59,36 @@ body {
     position:absolute;
     width: 3px;
     height: 25px;
-    left: 460px;
+    left: 470px;
     justify-content: center;
     background-color: white;
     opacity: 1;
-    animation: flickerAnimation;
-    animation-duration: 0.9s;
-    animation-iteration-count: infinite;
+    transition: all 20ms linear;
         
+}
+.animation {
+    animation: flickerAnimation;
+    animation-duration: 0.8s;
+    animation-iteration-count:  infinite;
 }
 .language  {
     font-size: 20px;
     font-family: monospace;
     color: #dad9d8;
+}
+#timer {
+    opacity: 0;
+    font-family: monospace;
+    font-size: 23px;
+    color: #dad9d8;
+    top: 340px;
+    left: 460px; 
+    position: absolute;
+    justify-content: center;
+    animation: fadIn;
+    animation-duration: 0.2s;
+    animation-play-state: paused;
+
 }
 .navbar a {
     display: block;
@@ -105,16 +145,19 @@ footer p {
     display: flex;
     flex-wrap: wrap;
     font-size: 20px;
-    width: 1000px;
-    margin: auto; 
+    width: 1000px; 
     background-color: #373C3F;
 }
 #word {
-    display: inline;
+    display: inline-block;
     font-family: 'Courier New', Courier, monospace;
     color: #dad9d8;
-    width:500x;
+    width:500;
     font-size: 23px;
     line-height: 1.5em;
 
+}
+.word::after {
+    content: '\A';
+    white-space: pre;
 }
