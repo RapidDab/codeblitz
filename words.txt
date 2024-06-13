@@ -1,6 +1,9 @@
 # Iterating over a String
-print("String Iteration")
+print("String Iteration") 
+#sasasa 
+s = "Geeks" 
+for i in s:
+    >print(i) 
+    >asassasasa 
 
-s = "Geeks"
-for i in s:pytho
-    print(i)
+

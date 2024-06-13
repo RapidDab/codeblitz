@@ -140,24 +140,26 @@ footer p {
 #maintext{
     position: absolute;
     left: 50%;
-    top: 48%;
+    top: 40%;
+    /* height: 100px; */
     transform: translate(-50%, -50%);
-    display: flex;
     flex-wrap: wrap;
     font-size: 20px;
     width: 1000px; 
     background-color: #373C3F;
 }
 #word {
-    display: inline-block;
+    position: absolute;
+    top: 30px;
+    /* display: inline-block; */
     font-family: 'Courier New', Courier, monospace;
     color: #dad9d8;
     width:500;
     font-size: 23px;
-    line-height: 1.5em;
+    /* line-height: 1.5em; */
 
 }
-.word::after {
+/* .word::after {
     content: '\A';
     white-space: pre;
-}
+} */

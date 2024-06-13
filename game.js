@@ -16,36 +16,85 @@ class Game {
         var t = [];
         let div = "";
         let p = ""
+        let enter = 1; 
+        let hieght = 0;
         fetch("words.txt")
             .then(function (res) {
                 return res.text();
             })
             .then(function (data) {
                 let text = data.toString().split("\n");
+                let word = ""
+                let newText = []
+                let height = 0;
+                let enter = 0;
                 for (let i = 0; i < text.length; i++) {
+                    if (text[i].includes("#") == true) {
+                        for (let k = 0; k < text[i].split(" ").length; k++) {
+                            newText.push(text[i].split(" ")[k])
+                        }
+                    } 
+                    else if (text[i].includes("for")|| text[i].includes(">")) {
+                        newText.push(text[i].toString())
+                    }
+                    word += text[i]
+                } 
+                console.log(newText)
+                let index = 1;
+                for (let i = 0; i < newText.length; i++) {
                     div = document.createElement("div");
                     div.setAttribute("id", "word");
-                    for (let k = 0; k < text[i].length; k++) {
-                        p = document.createElement("p");
-                        p.style.display = "inline";
-                        p.innerHTML = text[i][k];
-                        div.appendChild(p)
+                    if (newText[i] == "#") {
+                        index = i + text[i].split(" ").length;
                     }
+                    if (index > i){
+                        div.style.position = "static";
+                        div.style.display = "inline-block"
+                    }
+                    else {
+                        height += 26;
+                        enter +=1;
+                    }
+                    if (newText[i].includes(">")) {
+                        div.style.left = "2em"
+                    }
+                    if (i != 0) {
+                        div.style.top = `${1.5*enter}em`
+                    }
+                    let rect = window.getComputedStyle(div)
+                     
+                    for (let k = 0; k < newText[i].length; k++) {
+                        if (newText[i][k] != undefined && newText[i][k] != ">") {
+                           p = document.createElement("p");
+                            p.style.display = "inline";
+                            p.innerHTML = newText[i][k];
+                            div.appendChild(p) 
+                        }
+                        // if (text[i][k] != undefined) {
+                        //     p = document.createElement("p");
+                        //      p.style.display = "inline";
+                        //      p.innerHTML = text[i][k];
+                        //      div.appendChild(p) 
+                        //  }
+                        
+                    }
+                    
                     p = document.createElement("p");
                     p.style.display = "inline";
-                    p.innerHTML = "&nbsp";                
+                    p.innerHTML = "&nbsp;";
                     div.appendChild(p)
                     game.text.appendChild(div)
                 }
             game.index = 0;
             game.innerText = document.getElementsByTagName("p");
+            console.log(game.text.style.top)
             });
     }
     setUpAssets () {
         function resize() {
-            game.language.style.top = `${game.window.top.split('px')[0]-150}px`
+            game.language.style.top = `${game.window.top.split('px')[0]-70}px`
             game.typer.style.left = `${game.window.left.split('px')[0]-502}px`
-            game.typer.style.top = `${game.window.top.split('px')[0]-100}px`
+            game.typer.style.top = `${game.window.top.split('px')[0]-15}px`
             game.restartTyperLeft = `${game.window.left.split('px')[0]-502}px`
             game.restartTyperTop = `${game.window.top.split('px')[0]-100}px`
             game.timer.style.top = `${game.window.top.split("px")[0]-138}px`;
