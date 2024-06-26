@@ -1,9 +1,629 @@
-# Iterating over a String
-print("String Iteration") 
-#sasasa 
-s = "Geeks" 
-for i in s:
-    >print(i) 
-    >asassasasa 
+###
+for i in range(0, 10, 2):
+    print(i)
+###
+l1 = ["eat", "sleep", "repeat"]
+
+for count, ele in enumerate(l1):
+    print (count, ele)
+###
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(i, j)
+###
+# Python program to illustrate
+# Iterating over a list
+l = ["geeks", "for", "geeks"]
+
+for i in l:
+    print(i)
+###
+Numbers =[x for x in range(11)]
+print(Numbers)
+###
+# Iterating over dictionary
+print("Dictionary Iteration")
+
+d = dict()
+
+d['xyz'] = 123
+d['abc'] = 345
+for i in d:
+    print("% s % d" % (i, d[i]))
+###
+t = ((1, 2), (3, 4), (5, 6))
+for a, b in t:
+    print(a, b)
+###
+fruits = ["apple", "banana", "cherry"]
+colors = ["red", "yellow", "green"]
+for fruit, color in zip(fruits, colors):
+    print(fruit, "is", color)
+###
+# Prints all letters except 'e' and 's'
+
+for letter in 'geeksforgeeks':
+
+    if letter == 'e' or letter == 's':
+        continue
+    print('Current Letter :', letter)
+###
+for letter in 'geeksforgeeks':
+
+    # break the loop as soon it sees 'e'
+    # or 's'
+    if letter == 'e' or letter == 's':
+        break
+
+print('Current Letter :', letter)
+###
+# An empty loop
+for letter in 'geeksforgeeks':
+    pass
+print('Last Letter :', letter)
+###
+# Python program to demonstrate
+# for-else loop
+
+for i in range(1, 4):
+    print(i)
+else:  # Executed because no break in for
+    print("No Break\n")
+###
+clothes = ["shirt", "sock", "pants", "sock", "towel"]
+paired_socks = []
+for item in clothes:
+    if item == "sock":
+        continue
+    else:
+        print(f"Washing {item}")
+paired_socks.append("socks")
+print(f"Washing {paired_socks}")
+###
+for day in range(1, 8):
+    distance = 3 + (day - 1) * 0.5
+    print(f"Day {day}: Run {distance:.1f} miles")
+###
+import pathlib
+from pathlib import Path
+
+# Dynamic File Path Solution
+OUTPUT_PATH = pathlib.Path(__file__).parent.absolute()
+ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
 
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
+###
+import pathlib
+import shutil
+from pathlib import Path
+
+# Dynamic File Path Solution
+THIS_PATH = pathlib.Path(__file__).parent.absolute()
+ASSETS_PATH = THIS_PATH / Path("aarch64")
+
+
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
+
+
+def relative_to_target(path: str) -> Path:
+    return THIS_PATH / Path(path)
+
+
+def copy_and_overwrite(from_path, to_path):
+    if os.path.exists(to_path):
+        shutil.rmtree(to_path)
+    shutil.copytree(from_path, to_path)
+###
+while True:
+    answer = input("Do you want to try again? (Y/n) ")
+    if answer == 'y' or answer == 'Y' or sys.stdin.isatty():
+        num = int(input("Enter a number: "))
+        print(num2roman(num))
+    elif answer == 'n':
+        break
+    else:
+        print("Invalid input.")
+###
+for link in linksFinder:
+    print(link.get("href"))
+
+    saveFile = input(
+        "Do you want to save this list inside a text file? (y/n) ")
+    if saveFile == "y":
+        with open("links.txt", "a") as file:
+            file.write(link.get("href") + "\n")
+    else:
+        pass
+###
+import random
+
+sample = ['a', 'b', 'c', 'd', 'e']
+print(random.choice(sample))
+
+# For cryptographically secure random choices (e.g., for generating a passphrase from a wordlist), use secrets.choice():
+
+import secrets
+
+sample = ['battery', 'correct', 'horse', 'staple']
+print(secrets.choice(sample))
+###
+import random
+
+visualSet = {"Rock": rock, "Paper": paper, "Scissors": scissors}
+aiChoice = random.choice(list(visualSet.values()))
+
+"""All possible ways to randomize:
+
+'d' is the dictionary variable.
+
+A random key:
+random.choice(list(d.keys()))
+
+A random value:
+random.choice(list(d.values()))
+
+A random key and value:
+random.choice(list(d.items()))
+"""
+###
+import subprocess
+
+rootNeeded = subprocess.call(["/usr/bin/sudo", "/usr/bin/id"])
+###
+    # Bytes Encode and Decode Study
+
+    def writeString():
+        # Write a string at the end of a JPG file.
+        with open(relative_to_assets('photo.jpg'), 'ab') as f:  # ab append bytes mode
+            f.write(b' Hidden message: test :)') # b is for bytes
+
+    def readString():
+        # Read HEX of the JPG file.
+        with open(relative_to_assets('photo.jpg'), 'rb') as f:  # Read bytes mode
+            jpgContent = f.read()
+            # when FF D9 occurs.
+            offset = jpgContent.index(bytes.fromhex('FFD9'))
+            f.seek(offset + 2)
+            print(f.read())
+
+    def deleteString():
+        # delete everything after the last FF D9 from a JPG file
+        with open(relative_to_assets('photo.jpg'), 'r+') as f:  # Read bytes mode
+            jpgContent = f.read()
+            offset = jpgContent.index(bytes.fromhex('FFD9'))
+            f.seek(offset + 2)
+            f.truncate()
+###
+from pathlib import Path
+import pathlib
+files = os.listdir(ASSETS_PATH)
+
+# Interesting solution to pick specific files inside a list.
+for file in files:
+    if file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg"):
+      print(f"Optimizing {file}")
+      imgOptimize = Image.open(relative_to_assets(str(file)))
+      imgWidth, imgHeight = imgOptimize.size
+    else:
+      print(f"{file} is not a PNG or JPG, skipping")
+###
+import re
+    
+# Regular Expression from module re;
+# https://docs.python.org/3/library/re.html
+# validate def will make sure that the remTwo var can have a "." as float
+
+
+def validate(string):
+    result = re.match(r"(\+|\-)?\d+(\.\d+)?$", string)
+    return result is not None
+###
+import os
+import sys
+
+# Python path. This will pick the current directory where the script is located.
+current_dir = os.path.dirname(sys.argv[0])
+# OR
+current_shell_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Shell path. This will pick "current_dir" and replace any possible empty spaces with "\" and other fixes to be compatible with any unix-like Shell.
+
+fixDirPath = current_dir.replace(" ", "\\ ").replace("?", "\\?").replace("&", "\\&").replace(
+    "(", "\\(").replace(")", "\\)").replace("*", "\\*").replace("<", "\\<").replace(">", "\\>")
+
+
+targetDirectory = "Sample"
+
+# Sample script usage to delete a directory using shell commands
+os.system(f"rm -rf {str(fixDirPath)}/{str(targetDirectory)}")
+###
+# Simple like that :)
+userString = input("Enter a text: ")
+print(userString[::-1]) # Reverse the string
+###
+minutes = "24.785089"
+print(minutes + " minutes is equal to " +
+      str(float(minutes)/60/24/365) + " years.")
+###
+num_map = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), (100, 'C'), (90, 'XC'),
+           (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')]
+
+# Function to convert the numbers to roman values. Based on NullDev algorithm.
+
+
+def num2roman(num):
+
+    roman = ''
+
+    while num > 0:
+        for i, r in num_map:
+            while num >= i:
+                roman += r
+                num -= i
+
+    return roman
+###
+# Simple formulas to convert temperature from Celsius to Fahrenheit and vice versa.
+fahrenheit = celsius * 9 / 5 + 32
+celsius = (fahrenheit - 32) * 5 / 9
+###
+import os
+nameGen = "Hello there :)"
+# Copy to the variable "nameGen" to the clipboard
+os.system(f"echo {nameGen} | pbcopy")
+###
+import os
+targetSite = "https://google.com/"
+os.system(f"open {targetSite}")
+###
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+
+currentUser = "default"
+mainDirectory = f"/Users/{currentUser}/Downloads"
+jobDestinationPath = f"/Users/{currentUser}/Documents/Remotish"
+
+class MyHandler(FileSystemEventHandler): # We need to create a class with the FileSystemEventHandler
+
+    # After that we need to make a function with self and event. So when anything happens to the folder it will execute the function.
+    def on_modified(self, event):
+        for individualFile in os.listdir(mainDirectory):
+            os.rename(f"{mainDirectory}/{individualFile}", f"{jobDestinationPath}/{individualFile}")
+
+# Needed to monitor Watchdog
+eventHandler = MyHandler()
+observer = Observer()
+observer.schedule(eventHandler, mainDirectory, recursive=True)
+observer.start()
+
+# Needed to monitor Watchdog
+try:
+    while True:
+        time.sleep(10)
+except KeyboardInterrupt:
+    observer.stop()
+observer.join()
+###
+{
+    "_comment": "SAMPLE JSON FILE",
+    "username": "testABC",
+    "password": "testDEF"
+}
+###
+import json
+import sys
+import os
+
+userContent = {}
+current_dir = os.path.dirname(sys.argv[0])
+
+with open(f"{current_dir}/sample-json.json", "r") as json_file:
+    userContent = json.load(json_file)
+    print(userContent["username"])
+    print(userContent["password"])
+###
+{
+    "_comment": "SAMPLE JSON FILE",
+    "username": "testABC",
+    "password": "testDEF"
+}
+###
+import json
+import sys
+import os
+
+userContent = {}
+current_dir = os.path.dirname(sys.argv[0])
+
+userInp = input("Enter your username: ")
+userInp2 = input("Enter your password: ")
+
+userContent["username"] = f"{str(userInp)}"
+userContent["password"] = f"{str(userInp2)}"
+
+
+with open(f"{current_dir}/sample-json.json", "w") as json_file:
+    json.dump(userContent, json_file)
+    print(f"The new username is: {str(userContent['username'])}")
+    print(f"The new password is: {str(userContent['password'])}")
+###
+import requests
+import json
+
+responseAPI = requests.get('https://randomfox.ca/floof')
+
+# This will return a simple status code.
+print(responseAPI.status_code)
+# This will return a string value with the contents inside the API URL.
+print(responseAPI.text)
+# Now printing json format and using as a dictionary.
+print(responseAPI.json())
+###
+import requests
+import json
+
+# Getting the API url/path
+responseAPI = requests.get('https://randomfox.ca/floof')
+# Output from GET: {'image': 'https://randomfox.ca/images/13.jpg', 'link': 'https://randomfox.ca/?i=13'}
+generatedFoxImg = responseAPI.json()
+
+print(f"Your random fox: {generatedFoxImg['image']} \n")
+###
+from fastapi import FastAPI
+
+appStudy = FastAPI()
+
+
+@appStudy.get("/")
+async def root():
+    return {"messageField": "Message content here."}
+###
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
+
+appStudy = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    price: float
+    quantity: Optional[int] = None
+
+# This is actually the API values
+inventoryDict = {
+    "1": {"name": "Bread", "price": 1.25, "quantity": "10"},
+    "2": {"name": "Milk", "price": 2.45, "quantity": "5"},
+    "3": {"name": "Eggs", "price": 3.99, "quantity": "20"},
+    "4": {"name": "Cheese", "price": 4.99, "quantity": "15"},
+    "5": {"name": "Butter", "price": 5.00, "quantity": "5"}
+}
+
+# Using POST method
+@appStudy.post("/post-item/{item_id}")
+def createItem(item_id: int, item: Item):
+    # Let's create a new item id.
+    if item_id in inventoryDict:
+        return {"DataErr": "Item already exists"}
+    else:
+        inventoryDict[str(item_id)] = item
+        return inventoryDict[str(item_id)]
+###
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
+from fastapi.encoders import jsonable_encoder
+from typing import Optional
+
+appStudy = FastAPI()
+
+# This class is for the PUT request
+class updateItem(BaseModel):
+    name: Optional[str] = None
+    price: Optional[float] = None
+    quantity: Optional[int] = None
+
+# This is actually the API values
+inventoryDict = {
+    "1": {"name": "Bread", "price": 1.25, "quantity": "10"},
+    "2": {"name": "Milk", "price": 2.45, "quantity": "5"},
+    "3": {"name": "Eggs", "price": 3.99, "quantity": "20"},
+    "4": {"name": "Cheese", "price": 4.99, "quantity": "15"},
+    "5": {"name": "Butter", "price": 5.00, "quantity": "5"}
+}
+
+# PUT method
+@appStudy.put("/put-item/{item_id}")
+def createItem(item_id: int, item: Item):
+    # Let's create a new item id.
+    if item_id in inventoryDict:
+        return {"DataErr": "Item already exists"}
+    else:
+        inventoryDict[str(item_id)] = item
+        return inventoryDict[str(item_id)]
+###
+import base64
+import pathlib
+import os
+import re
+from pathlib import Path
+
+# Dynamic File Path Solution
+API_PATH = pathlib.Path(__file__).parent.absolute()
+
+
+def relative_to_assets(path: str) -> Path:
+    return API_PATH / Path(path)
+
+userChange = input("Enter key: ").strip()
+
+# Pick userChange and encode it to base64
+userChange = base64.b64encode(userChange.encode('utf-8'))
+# Save userChange to "API" file
+with open(relative_to_assets('Data/security/API'), 'wb') as f:
+    # Delete everything inside the file.
+    f.truncate()
+    f.write(userChange)
+
+    print("DONE! You are ready to use the API!")
+###
+#! /usr/bin/env python3
+import base64
+import os
+import pathlib
+import re
+from pathlib import Path
+
+# Dynamic File Path Solution
+KEY_PATH = pathlib.Path(__file__).parent.absolute()
+
+
+def relative_to_assets(path: str) -> Path:
+    return KEY_PATH / Path(path)
+
+
+def encryptSecurity():
+    # Use external script to make base64 or https://www.base64encode.org/
+    key = "MTMy"  # up 255
+    key = base64.b64decode(key)
+    cleanKey = re.sub(
+        r"[^A-Za-z0-9-]", "", key.decode("utf-8"))
+    finalKey = int(cleanKey)
+
+    loadEnc00 = open(relative_to_assets("Data/security/.KEY"), "rb")
+    byteReaderData = loadEnc00.read()
+    loadEnc00.close()
+
+    byteReaderData = bytearray(byteReaderData)
+    for index, value in enumerate(byteReaderData):
+        byteReaderData[index] = value ^ finalKey
+
+    Enc = open(relative_to_assets("Data/security/.KEY.nclmE"), "wb")
+    Enc.write(byteReaderData)
+    Enc.close()
+
+    # Delete Data/security/KEY
+    os.remove(relative_to_assets("Data/security/.KEY"))
+
+
+encryptSecurity()
+###
+#! /usr/bin/env python3
+import base64
+import os
+import pathlib
+import re
+import string
+from pathlib import Path
+import signal
+
+# Dynamic File Path Solution
+KEY_PATH = pathlib.Path(__file__).parent.absolute()
+
+
+def relative_to_assets(path: str) -> Path:
+    return KEY_PATH / Path(path)
+
+
+def signal_handler(sig, frame):
+    # If the program exits then remove important files.
+    os.remove(relative_to_assets("Data/security/.tmp/.KEY"))
+    exit()
+
+
+def decryptSecurity():
+    # Use external script to make base64 or https://www.base64encode.org/
+    key = "MTMy"  # up 255
+    key = base64.b64decode(key)
+    cleanKey = re.sub(
+        r"[^A-Za-z0-9-]", "", key.decode("utf-8"))
+    finalKey = int(cleanKey)
+
+    loadEnc00 = open(relative_to_assets(
+        "Data/security/.KEY.nclmE"), "rb").read()
+
+    byteReader = bytearray(loadEnc00)
+    for index, value in enumerate(byteReader):
+        byteReader[index] = value ^ finalKey
+
+    decEnc = open(relative_to_assets("Data/security/.tmp/.KEY"), "wb")
+    decEnc.write(byteReader)
+
+
+try:
+    # signal handler for "CTRL + C"
+    signal.signal(signal.SIGINT, signal_handler)
+    decryptSecurity()
+    signal.pause()
+except:
+    # In exeption remove important files.
+    os.remove(relative_to_assets("Data/security/.tmp/.KEY"))
+###
+import os
+import time
+import subprocess
+import pathlib
+from pathlib import Path
+
+currentVersion = "v1.0.5 - Release"
+pid = os.getpid()
+
+OUTPUT_PATH = pathlib.Path(__file__).parent.absolute()
+LOGS_PATH = OUTPUT_PATH / Path("./logs")
+
+def relative_to_logs(path: str) -> Path:
+    """Return a path relative to the logs folder."""
+    return LOGS_PATH / Path(path)
+
+def get_timestamp():
+    """Return a unix timestamp."""
+    return time.time()
+
+def logRoutine(log: str, timeNeeded: bool = True):
+    """Write strings to the log file and if debug is enabled, print it to console."""
+
+    if timeNeeded is None:
+        timeNeeded = True
+
+    debugMode = False
+    currentTime = time.strftime("%m-%d-%Y -> %H:%M:%S")
+    logHeader = f"""{currentVersion}
+===================================================
+          LOG FILE MADE FOR DEBUG PURPOSES
+      made by Nicolas Mendes - September 2021
+===================================================\n
+"""
+
+    # Check if "ioc.log" exists, if not create this file.
+    if not os.path.exists(relative_to_logs("ioc.log")):
+        open(f"{relative_to_logs('ioc.log')}", "w+")
+        # append logHeader to the file.
+        with open(f"{relative_to_logs('ioc.log')}", "a") as logFile:
+            logFile.write(logHeader)
+
+    # if the first line of ioc.log is different from currentVersion
+    with open(f"{relative_to_logs('ioc.log')}") as checkVer:
+        firstlineVer = checkVer.readline().rstrip()
+        if firstlineVer != currentVersion:
+            # Delete everything inside the file and append logHeader.
+            with open(f"{relative_to_logs('ioc.log')}", "w+") as logFile:
+                logFile.write(logHeader)
+
+    # if the file exceeds 1000 lines, delete everything and append logHeader to the file.
+    with open(f"{relative_to_logs('ioc.log')}", "r") as logFile:
+        if len(logFile.readlines()) > 1000:
+            with open(f"{relative_to_logs('ioc.log')}", "w") as logFile:
+                logFile.write(logHeader)
+
+    # Append the log to the file.
+
+    if timeNeeded == True:
+        with open(f"{relative_to_logs('ioc.log')}", "a") as logFile:
+            logFile.write(f"{currentTime} - {log}\n")
+    else:
+        with open(f"{relative_to_logs('ioc.log')}", "a") as logFile:
+            logFile.write(f"{log}\n")
+
+    if debugMode == True:
+        return print(f"DEBUG LOG: {log}")
+###

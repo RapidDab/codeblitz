@@ -140,17 +140,24 @@ footer p {
 #maintext{
     position: absolute;
     left: 50%;
+    right:50%;
     top: 40%;
+    bottom:auto;
+    margin: auto;
+    /* bottom:50%; */
     /* height: 100px; */
     transform: translate(-50%, -50%);
+    text-align: center;
     flex-wrap: wrap;
     font-size: 20px;
     width: 1000px; 
     background-color: #373C3F;
+    justify-content: center;
+    align-items: center;
 }
 #word {
     position: absolute;
-    top: 30px;
+    top: 15px;
     /* display: inline-block; */
     font-family: 'Courier New', Courier, monospace;
     color: #dad9d8;
