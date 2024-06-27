@@ -32,6 +32,7 @@ body {
     animation: fadOut;
     animation-duration: 0.2s;
     animation-play-state: paused;
+    z-index:12;
 }
 .language {
     display: flex;
@@ -64,6 +65,7 @@ body {
     background-color: white;
     opacity: 1;
     transition: all 20ms linear;
+    z-index:12;
         
 }
 .animation {
@@ -75,6 +77,7 @@ body {
     font-size: 20px;
     font-family: monospace;
     color: #dad9d8;
+    z-index:12;
 }
 #timer {
     opacity: 0;
@@ -88,6 +91,7 @@ body {
     animation: fadIn;
     animation-duration: 0.2s;
     animation-play-state: paused;
+    z-index:12;
 
 }
 .navbar a {
@@ -95,6 +99,7 @@ body {
     color: #FFFFFF;
     padding: 13px 20px;
     text-decoration: none;
+    z-index:12;
 }
 .navbar .logo {
     display: block;
@@ -137,6 +142,46 @@ footer p {
 #icons i:hover {    
     color: rgb(82, 82, 82);
 }
+#hidden-text-bottom {
+    width:  1000px;
+    top:72%;
+    left:50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    height:200px;
+    z-index:9;
+}
+#hidden-text-bottom::after {
+    position: absolute;
+    content: "";
+    left:0px;
+    top:0px;
+    height:100%;
+    width:100%;
+    background: linear-gradient(transparent, #3d4144 25%);
+    pointer-events:none;
+}
+#hidden-text-top {
+    width:  1000px;
+    transform: rotate(3.142rad);
+    top:28%;
+    left:50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    height:200px;
+    z-index:9;
+}
+#hidden-text-top::after {
+    position: absolute;
+    content: "";
+    left:0px;
+    top:0px;
+    height:100%;
+    width:100%;
+    background: linear-gradient(#3d4144 75%, transparent)
+}
 #maintext{
     position: absolute;
     left: 50%;
@@ -147,6 +192,7 @@ footer p {
     /* bottom:50%; */
     /* height: 100px; */
     transform: translate(-50%, -50%);
+    /* transition: all 28ms linear; */
     text-align: center;
     flex-wrap: wrap;
     font-size: 20px;
@@ -154,6 +200,7 @@ footer p {
     background-color: #373C3F;
     justify-content: center;
     align-items: center;
+    transition: none;
 }
 #word {
     position: absolute;

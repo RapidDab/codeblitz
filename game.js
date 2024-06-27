@@ -1,6 +1,7 @@
 class Game {
     constructor() {
         this.text = document.getElementById("maintext");
+        this.hiddenText = document.getElementById("hidden-text-top")
         this.window = window.getComputedStyle(this.text);
         this.language = document.getElementById("lang");
         this.typer = document.getElementById("typer");
@@ -123,6 +124,7 @@ class Game {
             console.log(newText.length)
             if (newText.length < 6) {
                 game.text.style.top = "45%"
+                game.hiddenText.style.top = "30%"
                 game.typer.style.top = `${game.innerText[game.index].getBoundingClientRect().top}px`
                 // game.typer.style.top = "50%"
             }
@@ -219,6 +221,7 @@ function timer () {
         }
     }, 1000);
 }
+let enter = 0;
 function newLine (gameIndex, key) {
     let firstElemement = game.innerText[l].getBoundingClientRect();
     let top = firstElemement.top;
@@ -229,8 +232,18 @@ function newLine (gameIndex, key) {
     let nextLeft = nextElemement.left;
     if (top != nextTop) {
         if (key != " ") {
-            game.typer.style.top = `${(nextTop-2)}px`
             game.typer.style.left = `${left}px`
+            if (nextLeft < left) {
+                game.typer.style.left = `${nextLeft}px`
+            }
+            if (enter >= 1) {
+                game.text.style.transition = "all 28ms linear"
+                game.text.style.top = `${game.window.top.split('px')[0]-35}px`
+                // game.typer.style.top = `${game.typer.style.top - (-game.typer.getBoundingClientRect().height)}`
+            }
+            else {
+                game.typer.style.top = `${(nextTop-2)}px`
+            }
             let i = game.index;
                 // while (true) {
                 //     // console.log(game.innerText[i+5].getBoundingClientRect().left)s
@@ -243,6 +256,7 @@ function newLine (gameIndex, key) {
                 //     }
                 //     i+=1
                 // }
+            enter += 1;
             l = gameIndex+1
             return true
         }
@@ -264,7 +278,7 @@ if (game.moveTyper === true ) {
         keyPressed.push(e.key)
         game.typer.style.transitionDuration = "0s";
         let copy = game.typer.style.left;
-        console.log("Tab", game.innerText[game.index].innerHTML)
+        // console.log("Tab", game.innerText[game.index].innerHTML)
         for (let i = 0; i < keyPressed.length; i++) {
             // console.log(keyPressed[i])
             if (keyPressed[i] == game.innerText[game.index].innerHTML) {
