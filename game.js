@@ -264,7 +264,20 @@ function newLine (gameIndex, key) {
         return false
     }
 }
+function TabTrue(gameIndex) {
+    if (gameIndex >= 1) {
+        if ((game.innerText[gameIndex].getBoundingClientRect().left - parseInt(game.typer.style.left.split("px")[0])) >= 5) {
+            return false
+        } else {
+            return true;
+        }
+    } else {
+        return true
+    }
+    
+}
 // console.log(game.text)
+let tabBool = true
 let copy = animation.style.animation;
 if (game.moveTyper === true ) {
     window.addEventListener("keydown", (e) => {
@@ -281,7 +294,7 @@ if (game.moveTyper === true ) {
         // console.log("Tab", game.innerText[game.index].innerHTML)
         for (let i = 0; i < keyPressed.length; i++) {
             // console.log(keyPressed[i])
-            if (keyPressed[i] == game.innerText[game.index].innerHTML) {
+            if (keyPressed[i] == game.innerText[game.index].innerHTML && tabBool) {
                 const fontSize = getTextWidth(game.innerText[game.index].innerHTML, getCanvasFont(game.innerText[game.index]));
                 game.innerText[game.index].style.color = "#dad9d8";
                 game.innerText[game.index].style.opacity = "0.7";
@@ -355,7 +368,7 @@ if (game.moveTyper === true ) {
             //     break;
             // }
             else {
-               if (keyPressed[i] != "Shift" && keyPressed[i] != "Enter" && keyPressed[i] != "Tab" && keyPressed[i] != "Backspace") {
+               if (keyPressed[i] != "Shift" && keyPressed[i] != "Enter" && keyPressed[i] != "Tab" && keyPressed[i] != "Backspace" && tabBool) {
                 if (game.innerText[game.index].innerHTML != "&nbsp;") {
                     game.innerText[game.index].style.color = "#969696"
                     game.innerText[game.index].style.backgroundColor ="#735454"
@@ -378,6 +391,8 @@ if (game.moveTyper === true ) {
                 game.typer.style.top = game.restartTyperTop
                 game.setUpAssets()
             }
+            tabBool = TabTrue(game.index)
+            console.log(tabBool)
             
         
         
