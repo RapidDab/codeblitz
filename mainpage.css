@@ -56,6 +56,23 @@ body {
         
     }
 }
+#reset {
+    position: absolute;
+    left: 50%;
+    right:40%;
+    top:70%;
+    bottom:auto;
+    margin: auto;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: 'Courier New', Courier, monospace;
+    color: #dad9d8;
+    font-size: 23px;
+    z-index: 12;
+}
 #typer {
     position:absolute;
     width: 3px;

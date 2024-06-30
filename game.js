@@ -7,6 +7,7 @@ class Game {
         this.typer = document.getElementById("typer");
         this.innerText = document.getElementsByTagName("p");
         this.timer = document.getElementById("timer");
+        this.reset = document.getElementById("reset");
         this.moveTyper = true;
         this.index =0;
         this.restartTyperLeft = this.typer.style.left;
@@ -211,16 +212,7 @@ let startGame = true;
 //     console.log("hello")
 //     animation.animationPlayState = "paused"
 // });
-let sec = 15;
-function timer () {
-    setInterval(() => {
-        game.timer.innerHTML = sec.toString();
-        sec--;
-        if (sec < 0) {
-            clearInterval(timer);
-        }
-    }, 1000);
-}
+
 let enter = 0;
 function newLine (gameIndex, key) {
     let firstElemement = game.innerText[l].getBoundingClientRect();
@@ -276,21 +268,80 @@ function TabTrue(gameIndex) {
     }
     
 }
+window.addEventListener("keydown", () => {
+    
+    
+})
 // console.log(game.text)
 let tabBool = true
 let copy = animation.style.animation;
+var sec = null;
+let timer = null
+// let timer = null;
+game.reset,addEventListener("click", function() {
+    for (let i = 0; i < game.innerText.length; i++) {
+        game.innerText[i].innerHTML = ""
+    }
+    let child = game.text.lastElementChild;
+    while (game.text.lastElementChild) {
+        game.text.removeChild(game.text.lastElementChild);
+      }
+    clearInterval(timer);
+    game.createMainText();
+    game.setUpAssets();
+    animation.style.animation = "none";
+    game.timer.style.opacity = "0";
+    navbar.style.opacity = "1";
+    game.language.style.opacity = "1";
+    game.language.style.animationPlayState = "running";
+    navbar.style.animationPlayState = "running";
+    game.timer.style.animationPlayState = "running";
+    startGame = true;
+    game.timer.innerHTML = "15"
+    game.index = 0;
+    game.reset.blur()
+})
 if (game.moveTyper === true ) {
     window.addEventListener("keydown", (e) => {
-        animation.style.animation = "none";
-        game.timer.style.opacity = "1";
-        navbar.style.opacity = "0";
-        game.language.style.opacity = "0";
-        game.language.style.animationPlayState = "running";
-        navbar.style.animationPlayState = "running";
-        game.timer.style.animationPlayState = "running";
         keyPressed.push(e.key)
-        game.typer.style.transitionDuration = "0s";
+        if (game.index == 0 && (e.key !="Tab" && e.key != "Enter" && e.key != "Shift")) {
+            // game.timer.innerHTML = "15"
+            animation.style.animation = "none"; 
+            game.timer.style.opacity = "1";
+            navbar.style.opacity = "0";
+            game.language.style.opacity = "0";
+            game.language.style.animationPlayState = "running";
+            navbar.style.animationPlayState = "running";
+            game.timer.style.animationPlayState = "running";
+            game.typer.style.transitionDuration = "0s";
         let copy = game.typer.style.left;
+            if (startGame == true) {
+               var sec = new Date();
+                //sec  = sec.getTime();
+                sec.setSeconds(sec.getSeconds() + 15);
+                timer = setInterval(function () {
+                    let now = new Date().getTime();
+                    let t = sec - now;
+        
+                    let seconds = Math.floor((t%(1000*60))/1000)
+                    
+                    game.timer.innerHTML = seconds.toString()
+                    // if (--timer < 0) {
+                    //     timer = duration
+                    // }
+                    if (seconds <= 0) {
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+            startGame = false;
+        }
+        if (e.key == "Tab" && game.index == 0){
+            e.preventDefault()
+            game.reset.focus()
+            
+        }
+
         // console.log("Tab", game.innerText[game.index].innerHTML)
         for (let i = 0; i < keyPressed.length; i++) {
             // console.log(keyPressed[i])
@@ -339,7 +390,7 @@ if (game.moveTyper === true ) {
                 }
                 break;
             }
-            else if (keyPressed[i] == "Tab" && (game.innerText[game.index-2].innerHTML == ":" || game.innerText[game.index-2].innerHTML == "{")) {
+            else if (keyPressed[i] == "Tab" && tabBool == false) {
                 // console.log(game.innerText[game.index-6].innerHTML)
                 let i = game.index;
                 while (true) {
@@ -381,30 +432,39 @@ if (game.moveTyper === true ) {
             }
             //  console.log("Tab", game.innerText[game.index-1].innerHTML)
             }
-            keyPressed = [];
-            if (JSON.stringify(keyPressed) == JSON.stringify(restartKeys)){
-                for(let i = 0; i < game.innerText.length-4; i++) {
-                    game.innerText[i].innerHTML = "";
-                }
-                game.createMainText();
-                game.typer.style.left = game.restartTyperLeft
-                game.typer.style.top = game.restartTyperTop
-                game.setUpAssets()
-            }
             tabBool = TabTrue(game.index)
-            console.log(tabBool)
+            // console.log(tabBool)
             
         
         
     });
 }
-window.addEventListener("keypress", () => {
-    if (startGame == true) {
-        timer();
+window.addEventListener("keyup", (e) =>{
+    if (keyPressed.includes("Tab") && keyPressed.includes("Enter")) {
+        for (let i = 0; i < game.innerText.length; i++) {
+            game.innerText[i].innerHTML = ""
+        }
+        let child = game.text.lastElementChild;
+        while (game.text.lastElementChild) {
+            game.text.removeChild(game.text.lastElementChild);
+          }
+        clearInterval(timer);
+        game.createMainText();
+        game.setUpAssets();
+        animation.style.animation = "none";
+        game.timer.style.opacity = "0";
+        navbar.style.opacity = "1";
+        game.language.style.opacity = "1";
+        game.language.style.animationPlayState = "running";
+        navbar.style.animationPlayState = "running";
+        game.timer.style.animationPlayState = "running";
+        startGame = true;
+        game.timer.innerHTML = "15"
+        game.index = 0;
     }
-    startGame = false;
+    keyPressed = [];
     
-})
+});
 let flickerKeyFrame = new KeyframeEffect(
     game.typer,
     [{opacity: [1, 0, 1]}],
