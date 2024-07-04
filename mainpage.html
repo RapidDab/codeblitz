@@ -9,6 +9,7 @@
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/info.css' rel='stylesheet'>
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/code.css' rel='stylesheet'>
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/readme.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Navigation Bar Example</title>
     </head>
 <body>
@@ -38,9 +39,14 @@
         </div>
         <div id = "hidden-text-top"></div>
         <div id = "hidden-text-bottom"></div>
-        <button id="reset">reset</button>
+        <button id="reset">
+            <i class="fa fa-refresh"></i>
+        </button>
         <div id="typer" class="animation"></div>
         <div id= "timer">15</div>
+
+        <div id = "WPM"> WPM</div>
+        <div id = WPM-Num></div>
     </main>
     
     <footer>
@@ -48,7 +54,7 @@
         <p>   +   </p>
         <p id = "highlight"> enter</p>
         <p> = retart game</p>
-      </footer>
+    </footer>
 
     <script src="game.js"></script>
 </body>
