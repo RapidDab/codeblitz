@@ -18,6 +18,7 @@ class Game {
         this.restartTyperLeft = this.typer.style.left;
         this.restartTyperTop = this.typer.style.top;
         this.maxWidth = 0;
+        this.tabBool = true
 
     }
     createMainText() {
@@ -69,7 +70,7 @@ class Game {
                         
                     }
                 }
-                console.log(maxWidth) 
+                // console.log(maxWidth) 
                 let index = 1;
                 for (let i = 0; i < newText.length; i++) {
                     div = document.createElement("div");
@@ -87,7 +88,7 @@ class Game {
                         enter +=1;
                     } else {
                         div.style.top = `${-1.5}em`
-                        console.log(newText.length)
+                        // console.log(newText.length)
 
                     }
                     let rect = window.getComputedStyle(div)
@@ -140,7 +141,7 @@ class Game {
 
             game.language.style.top = game.changePixelValue(game.window.top, 70)
             // game.typer.style.left = game.changePixelValue(game.window.left, 40)\
-            game.typer.style.left = `${game.innerText[text.index].getBoundingClientRect().left}px`
+            game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
             game.typer.style.top = `${game.window.top.split('px')[0]-38}px`
             game.restartTyperLeft = game.changePixelValue(game.window.left, 502)
             game.restartTyperTop = game.changePixelValue(game.window.top, 100)
@@ -162,20 +163,20 @@ class Game {
         game.timer.style.opacity = "0";
         game.navbar.style.opacity = "1";
         game.language.style.opacity = "1";
+        game.WPM.style.opacity = "0";
+        game.WPM_Num.style.opacity = "0";
         game.language.style.animationPlayState = "running";
         game.navbar.style.animationPlayState = "running";
         game.timer.style.animationPlayState = "running";
-        game.WPM.style.opacity = "1";
-        game.WPM_Num.style.opacity = "1";
+        // game.WPM.style.opacity = "1";
+        // game.WPM_Num.style.opacity = "1";
         startGame = true;
         game.timer.innerHTML = "15"
         text.index = 0;
-        game.text.style.opacity = "1";
-        game.WPM.style.opacity = "0";
-        game.WPM_Num.style.opacity = "0";
-        game.typer.style.opacity = "1"
+        // game.text.style.opacity = "1";
+        // game.typer.style.opacity = "1"
         game.reset.blur()
-        tabBool = true
+        game.tabBool = true
     }
     resetOpacity() {
         game.WPM.style.opacity = "1";
@@ -188,15 +189,16 @@ class Game {
         game.typer.style.opacity = "0"
     }
     switchWindowes() {
-        game.animation.style.animation = "none";
-        game.timer.style.opacity = "1";
-        game.navbar.style.opacity = "0";
-        game.language.style.opacity = "0";
-        game.language.style.animationPlayState = "running";
-        game.navbar.style.animationPlayState = "running";
-        game.timer.style.animationPlayState = "running";
-        game.animation.style.animationPlayState = "paused"
-        tabBool = true
+        this.animation.style.animation = "none";
+        this.timer.style.opacity = "1";
+        this.navbar.style.opacity = "0";
+        this.language.style.opacity = "0";
+        this.language.style.animationPlayState = "running";
+        this.navbar.style.animationPlayState = "running";
+        this.timer.style.animationPlayState = "running";
+        this.animation.style.animationPlayState = "paused"
+        game.tabBool = true
+        text.index = 0;
     }
 
 }
@@ -266,6 +268,9 @@ class Text extends Game {
     }
     setOpacity(opacity) {
         this.innerText[this.index].style.opacity = opacity;
+    }
+    setBackgroundColor(color) {
+        this.innerText[this.index].style.backgroundColor = color;
     }
 
 
@@ -358,7 +363,7 @@ window.addEventListener("resize", () => {
     // const buffer = text.getTextWidth(game.innerText[text.index+1].innerHTML, text.getCanvasFont(game.innerText[text.index+1])); 
     document.body.style.overflow = 'hidden';
 } )
-let tabBool = true
+// let game.tabBool = true
 let copy = game.animation.style.animation;
 var sec = null;
 let timer = null
@@ -374,6 +379,7 @@ game.reset.addEventListener("keydown", (e) => {
         }
         clearInterval(timer);
         game.resetAssets();
+        // text.index = -1;
     }
 })
 window.addEventListener("keydown", (e) => {
@@ -415,7 +421,7 @@ if (game.moveTyper === true ) {
         if (e.key != "Control" && e.key != "F5") {
         let timePress = new Date()
         keyPressed.push(e.key)
-        // console.log(e.key)
+        // console.log(game.reset.onfocus)
         timeKey.push(parseFloat(timePress.getSeconds()+ "."+timePress.getMilliseconds()))
         if (text.index == 0 && e.key != "Tab" && e.key != "Enter") {
             // game.animation.style.animationPlayState = "paused"
@@ -423,47 +429,53 @@ if (game.moveTyper === true ) {
             game.switchWindowes()
         }
             // if ((Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(typer.getLeft().split("px")[0])) > 40) {
-            //     tabBool = false;
+            //     game.tabBool = false;
             // }
             if (text.index > 0) {
-                tabBool = typer.TabTrue(text.index)
-                console.log(tabBool)
+                game.tabBool = typer.TabTrue(text.index)
+                // console.log(game.tabBool)
             }
-            if (e.key == game.innerText[text.index].innerHTML && tabBool == true) {
+            if (e.key == game.innerText[text.index].innerHTML && game.tabBool == true) {
                 const fontSize = text.getTextWidth(game.innerText[text.index].innerHTML, text.getCanvasFont(game.innerText[text.index]));
                 text.setColor()
                 text.setOpacity("0.7")
                 // game.innerText[text.index].style.opacity = "0.7";
-                game.innerText[text.index].style.backgroundColor = "#373C3F"
+                // game.innerText[text.index].style.backgroundColor = "#373C3F"
                 // game.typer.style.left = `${game.typerCss.left.split('px')[0]-(-fontSize)}px`;
+                text.setBackgroundColor("#373C3F")
                 typer.setLeft(game.changePixelValue(game.typerCss.left, -fontSize))
                 text.index +=1;
             }
             else if (e.key == "Backspace") {
                 if (game.innerText[text.index-1].innerHTML != "&nbsp;") {
                     text.index -=1;
-                    game.innerText[text.index].style.opacity = "1";
-                    game.innerText[text.index].style.color = "#dad9d8";
+                    // game.innerText[text.index].style.opacity = "1";
+                    text.setOpacity("1")
+                    text.setColor("#dad9d8")
+                    // game.innerText[text.index].style.color = "#dad9d8";
+                    // game.typer.style.left = `${game.typerCss.left.split('px')[0]-(backSize)}px`;
                     const backSize = text.getTextWidth(game.innerText[text.index].innerHTML, text.getCanvasFont(game.innerText[text.index]));
-                    game.typer.style.left = `${game.typerCss.left.split('px')[0]-(backSize)}px`;
+                    typer.setLeft(game.changePixelValue(game.typerCss.left, backSize))
                     
                 }
             }
             else if (e.key == " " && typer.newLine(text.index, e.key) == false) {
                 if (game.innerText[text.index].innerHTML == "&nbsp;") {
                     game.innerText[text.index].style.backgroundColor = "#373C3F"
+                    text.setBackgroundColor("#373C3F")
                     const space = text.getTextWidth(" ", getCanvasFont(game.innerText[text.index]));
                     game.typer.style.left = `${game.typerCss.left.split('px')[0]-(-space)}px`
+                    typer.setLeft(game.changePixelValue(game.typerCss.left, space))
                     text.index +=1;
                 }
             }
-            else if (e.key == "Enter") {
+            else if (e.key == "Enter" && game.reset.onfocus == null) {
                 typer.newLine(text.index, e.key)
                 text.index +=1;
                 let k = text.index-1;
                 
             }
-            else if (e.key == "Tab" && tabBool == false && text.index !=0) {
+            else if (e.key == "Tab" && game.tabBool == false && text.index !=0) {
                 let i = text.index;
                 while (true) {
                     if (game.innerText[i].innerHTML != " ") {
@@ -476,7 +488,7 @@ if (game.moveTyper === true ) {
                 }
             }
             else {
-               if (e.key != "Shift" && e.key != "Enter" && e.key != "Tab" && e.key != "Backspace" && tabBool){
+               if (e.key != "Shift" && e.key != "Enter" && e.key != "Tab" && e.key != "Backspace" && game.tabBool){
                 if (game.innerText[text.index].innerHTML != "&nbsp;") {
                     game.innerText[text.index].style.color = "#969696"
                     game.innerText[text.index].style.backgroundColor ="#735454"
@@ -490,13 +502,13 @@ if (game.moveTyper === true ) {
             const buffer = text.getTextWidth(game.innerText[text.index].innerHTML, text.getCanvasFont(game.innerText[text.index]));
             copyTyper = typer.getLeft().split("px")[0]; 
             // console.log(( Math.round(copyTyper) - Math.round(game.innerText[text.index].getBoundingClientRect().left)) )
-            if (e.key == "Tab" && tabBool == true ){
+            if (e.key == "Tab" && game.tabBool == true ){
                 e.preventDefault()
                 game.reset.focus()
             }
             if ((Math.round(game.innerText[text.index].getBoundingClientRect().left) != Math.round(copyTyper)) &&
             (Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(copyTyper)) < 40) {
-                // tabBool = true
+                // game.tabBool = true
                 // game.typer.style.left = `${game.innerText[text.index].getBoundingClientRect().left}px`;
                 console.log("hello")
                 typer.setLeft(`${game.innerText[text.index].getBoundingClientRect().left}px`)
