@@ -33,7 +33,7 @@ body {
     animation: fadOut;
     animation-duration: 0.2s;
     animation-play-state: paused;
-    z-index:13;
+    z-index:15;
 }
 .language {
     display: flex;
@@ -95,8 +95,8 @@ body {
 #typer {
     position:absolute;
     width: 3px;
-    height: 25px;
-    left: 470px;
+    height: 31px;
+    /* left: 470px; */
     justify-content: center;
     background-color: white;
     opacity: 1;
@@ -104,6 +104,64 @@ body {
     z-index:12;
         
 }
+#instructions {
+    position: absolute;
+    height: 31px;
+    /* left: 470px; */
+    justify-content: center;
+    background-color: #373C3F;
+    opacity: 0.85;
+    transition: all 26ms ease;
+    z-index:12;
+    font-family: monospace;
+    font-size: 20px;
+    color: #dad9d8;
+    
+}
+#loading {
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    justify-content: center;
+    opacity: 1;
+    z-index: 14;
+    background-color: #373C3F;
+    height:100%;
+    /* animation: fadOut; */
+    /* animation: fadOut; */
+    /* animation-duration: 0.2s; */
+}
+#loading p {
+    position: absolute;
+    /* font-size: 30px; */
+    font-family: monospace;
+    color: #dad9d8;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top:45%;
+    font-size: 30px;
+    clip-path: inset(0 3ch 0 0);
+    animation: l4 1s steps(4) infinite;
+  }
+  .loader:before {
+    content:"Loading..."
+  }
+  @keyframes l4 {to{clip-path: inset(0 -1ch 0 0)}}
+/* .loader {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    clip-path: inset(0 3ch 0 0);
+    animation: l4 1s steps(4) infinite;
+  }
+  .loader:before {
+    content:"Loading..."
+  }
+  @keyframes l4 {to{clip-path: inset(0 -1ch 0 0)}} */
 .animation {
     animation: flickerAnimation;
     animation-duration: 0.8s;
@@ -114,6 +172,7 @@ body {
     font-family: monospace;
     color: #dad9d8;
     z-index:12;
+    transition: all 35ms ease
 }
 #timer {
     opacity: 0;
@@ -135,7 +194,7 @@ body {
     color: #FFFFFF;
     padding: 13px 20px;
     text-decoration: none;
-    z-index:12;
+    z-index:15;
 }
 .navbar .logo {
     display: block;
@@ -233,8 +292,7 @@ footer p {
     /* bottom:50%; */
     /* height: 100px; */
     transform: translate(-50%, -50%);
-    /* transition: all 28ms linear; */
-    text-align: center;
+    transition: all 28ms linear;
     flex-wrap: wrap;
     font-size: 20px;
     width: 1000px; 

@@ -33,7 +33,7 @@ for i in d:
 ###
 t = ((1, 2), (3, 4), (5, 6))
 for a, b in t:
-    print(a, b)
+     print(a, b)
 ###
 fruits = ["apple", "banana", "cherry"]
 colors = ["red", "yellow", "green"]
@@ -43,7 +43,6 @@ for fruit, color in zip(fruits, colors):
 # Prints all letters except 'e' and 's'
 
 for letter in 'geeksforgeeks':
-
     if letter == 'e' or letter == 's':
         continue
     print('Current Letter :', letter)
@@ -142,9 +141,10 @@ import random
 
 sample = ['a', 'b', 'c', 'd', 'e']
 print(random.choice(sample))
-
-# For cryptographically secure random choices (e.g., for generating a passphrase from a wordlist), use secrets.choice():
-
+"""
+# For cryptographically secure random choices (e.g., for generating
+a passphrase from a wordlist), use secrets.choice(): 
+"""
 import secrets
 
 sample = ['battery', 'correct', 'horse', 'staple']
@@ -177,12 +177,11 @@ rootNeeded = subprocess.call(["/usr/bin/sudo", "/usr/bin/id"])
 
     def writeString():
         # Write a string at the end of a JPG file.
-        with open(relative_to_assets('photo.jpg'), 'ab') as f:  # ab append bytes mode
-            f.write(b' Hidden message: test :)') # b is for bytes
-
+        with open(relative_to_assets('photo.jpg'), 'ab') as f:
+            f.write(b' Hidden message: test :)')
     def readString():
         # Read HEX of the JPG file.
-        with open(relative_to_assets('photo.jpg'), 'rb') as f:  # Read bytes mode
+        with open(relative_to_assets('photo.jpg'), 'rb') as f:
             jpgContent = f.read()
             # when FF D9 occurs.
             offset = jpgContent.index(bytes.fromhex('FFD9'))
@@ -191,7 +190,7 @@ rootNeeded = subprocess.call(["/usr/bin/sudo", "/usr/bin/id"])
 
     def deleteString():
         # delete everything after the last FF D9 from a JPG file
-        with open(relative_to_assets('photo.jpg'), 'r+') as f:  # Read bytes mode
+        with open(relative_to_assets('photo.jpg'), 'r+') as f:
             jpgContent = f.read()
             offset = jpgContent.index(bytes.fromhex('FFD9'))
             f.seek(offset + 2)
@@ -220,25 +219,6 @@ import re
 def validate(string):
     result = re.match(r"(\+|\-)?\d+(\.\d+)?$", string)
     return result is not None
-###
-import os
-import sys
-
-# Python path. This will pick the current directory where the script is located.
-current_dir = os.path.dirname(sys.argv[0])
-# OR
-current_shell_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Shell path. This will pick "current_dir" and replace any possible empty spaces with "\" and other fixes to be compatible with any unix-like Shell.
-
-fixDirPath = current_dir.replace(" ", "\\ ").replace("?", "\\?").replace("&", "\\&").replace(
-    "(", "\\(").replace(")", "\\)").replace("*", "\\*").replace("<", "\\<").replace(">", "\\>")
-
-
-targetDirectory = "Sample"
-
-# Sample script usage to delete a directory using shell commands
-os.system(f"rm -rf {str(fixDirPath)}/{str(targetDirectory)}")
 ###
 # Simple like that :)
 userString = input("Enter a text: ")
@@ -286,12 +266,12 @@ currentUser = "default"
 mainDirectory = f"/Users/{currentUser}/Downloads"
 jobDestinationPath = f"/Users/{currentUser}/Documents/Remotish"
 
-class MyHandler(FileSystemEventHandler): # We need to create a class with the FileSystemEventHandler
+class MyHandler(FileSystemEventHandler):
 
-    # After that we need to make a function with self and event. So when anything happens to the folder it will execute the function.
     def on_modified(self, event):
         for individualFile in os.listdir(mainDirectory):
-            os.rename(f"{mainDirectory}/{individualFile}", f"{jobDestinationPath}/{individualFile}")
+            os.rename(f"{mainDirectory}/{individualFile}", 
+                      f"{jobDestinationPath}/{individualFile}")
 
 # Needed to monitor Watchdog
 eventHandler = MyHandler()
@@ -367,7 +347,8 @@ import json
 
 # Getting the API url/path
 responseAPI = requests.get('https://randomfox.ca/floof')
-# Output from GET: {'image': 'https://randomfox.ca/images/13.jpg', 'link': 'https://randomfox.ca/?i=13'}
+# Output from GET: {'image': 'https://randomfox.ca/images/13.jpg',
+                     'link': 'https://randomfox.ca/?i=13'}
 generatedFoxImg = responseAPI.json()
 
 print(f"Your random fox: {generatedFoxImg['image']} \n")
@@ -483,7 +464,6 @@ def relative_to_assets(path: str) -> Path:
 
 
 def encryptSecurity():
-    # Use external script to make base64 or https://www.base64encode.org/
     key = "MTMy"  # up 255
     key = base64.b64decode(key)
     cleanKey = re.sub(
@@ -532,7 +512,6 @@ def signal_handler(sig, frame):
 
 
 def decryptSecurity():
-    # Use external script to make base64 or https://www.base64encode.org/
     key = "MTMy"  # up 255
     key = base64.b64decode(key)
     cleanKey = re.sub(
@@ -558,72 +537,1828 @@ try:
 except:
     # In exeption remove important files.
     os.remove(relative_to_assets("Data/security/.tmp/.KEY"))
+import os
+import sys
+def safe_copy(filepath_src, filepath_dst):
+    pass
+###
+def decorator_factory(argument):
+    def decorator(function):
+        def wrapper(*args, **kwargs):
+            something_with_argument(argument)
+            result = function(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+###
+# start a new virtual environment with another python
+virtualenv --python=python3.5 .venv
+source .venv/bin/activate
+###
+# -*- coding: utf-8 -*-
+# Print iterations progress
+def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
 ###
 import os
-import time
-import subprocess
-import pathlib
-from pathlib import Path
-
-currentVersion = "v1.0.5 - Release"
-pid = os.getpid()
-
-OUTPUT_PATH = pathlib.Path(__file__).parent.absolute()
-LOGS_PATH = OUTPUT_PATH / Path("./logs")
-
-def relative_to_logs(path: str) -> Path:
-    """Return a path relative to the logs folder."""
-    return LOGS_PATH / Path(path)
-
-def get_timestamp():
-    """Return a unix timestamp."""
-    return time.time()
-
-def logRoutine(log: str, timeNeeded: bool = True):
-    """Write strings to the log file and if debug is enabled, print it to console."""
-
-    if timeNeeded is None:
-        timeNeeded = True
-
-    debugMode = False
-    currentTime = time.strftime("%m-%d-%Y -> %H:%M:%S")
-    logHeader = f"""{currentVersion}
-===================================================
-          LOG FILE MADE FOR DEBUG PURPOSES
-      made by Nicolas Mendes - September 2021
-===================================================\n
+import sys
+def safe_copy(filepath_src, filepath_dst):
+  pass
+###
+def decorator_factory(argument):
+    def decorator(function):
+        def wrapper(*args, **kwargs):
+            something_with_argument(argument)
+            result = function(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+###
+# start a new virtual environment with another python
+virtualenv --python=python3.5 .venv
+source .venv/bin/activate
+###
+# -*- coding: utf-8 -*-
+# Print iterations progress
+def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)import os
+###
+vim ~/.bash_profile 
+* alias python = "/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/bin/python3.7"
+source ~/.bash_profile
+###
+def base_encode(self, secret_value):
+  """
+  Return base64 encoded string
+  """
+  message_bytes = secret_value.encode('ascii')
+  base64_bytes = base64.b64encode(message_bytes)
+  base64_message = base64_bytes.decode('ascii')
+  return base64_message
+###
+# Default ignored files
+/shelf/
+/workspace.xml
+###
+# Get the most common letter
+text = text.lower()
+return max(string.ascii_lowercase, key=text.count)
+###
+import random
+import string
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, 
+    QLineEdit, QCheckBox, QPushButton, QVBoxLayout
+class PasswordGenerator(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.password_length=12
 """
-
-    # Check if "ioc.log" exists, if not create this file.
-    if not os.path.exists(relative_to_logs("ioc.log")):
-        open(f"{relative_to_logs('ioc.log')}", "w+")
-        # append logHeader to the file.
-        with open(f"{relative_to_logs('ioc.log')}", "a") as logFile:
-            logFile.write(logHeader)
-
-    # if the first line of ioc.log is different from currentVersion
-    with open(f"{relative_to_logs('ioc.log')}") as checkVer:
-        firstlineVer = checkVer.readline().rstrip()
-        if firstlineVer != currentVersion:
-            # Delete everything inside the file and append logHeader.
-            with open(f"{relative_to_logs('ioc.log')}", "w+") as logFile:
-                logFile.write(logHeader)
-
-    # if the file exceeds 1000 lines, delete everything and append logHeader to the file.
-    with open(f"{relative_to_logs('ioc.log')}", "r") as logFile:
-        if len(logFile.readlines()) > 1000:
-            with open(f"{relative_to_logs('ioc.log')}", "w") as logFile:
-                logFile.write(logHeader)
-
-    # Append the log to the file.
-
-    if timeNeeded == True:
-        with open(f"{relative_to_logs('ioc.log')}", "a") as logFile:
-            logFile.write(f"{currentTime} - {log}\n")
+FILEPATH: basics.py
+This is a comment. It is ignored by the Python interpreter.
+Variables
+Variables are used to store data in memory.
+In Python, you don't need to declare the data type of a variable.
+You can just assign a value to a variable and Python will figure out the data type.
+"""
+###
+def test_var_args(farg, *args):
+    print "formal arg:", farg
+    for arg in args:
+        print "another arg:", arg
+test_var_args(1, "two", 3)
+###
+import os
+rootdir = "./input_files"
+paths = os.listdir(rootdir)
+for path in paths:
+    path = os.path.join(rootdir,path)
+    if os.path.isfile(path):
+        #...
+###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+# C extensions
+*.so
+# Distribution / packaging
+bin/
+build/
+###
+# Windows
+# You can also use py -3 -m venv .venv
+python -m venv .venv
+###
+curl -O https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tar.xz
+tar -xf Python-3.8.1.tar.xz 
+cd Python-3.8.1/
+./configure --enable-optimizations
+make -j 8
+sudo make altinstall
+# python -V
+# update-alternatives --list python
+# update-alternatives --config python
+###
+"""
+Create s list with 'a' - 'z'.py. Replace chars for other char ranges
+"""
+c = list(map(chr, range(ord('a'),ord('z')+1)))
+###
+#!/usr/bin/python3
+# -*- coding:utf-8 -*-
+###
+import os
+import sys
+def safe_copy(filepath_src, filepath_dst):
+  pass
+###
+def decorator_factory(argument):
+    def decorator(function):
+        def wrapper(*args, **kwargs):
+            something_with_argument(argument)
+            result = function(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+###
+# start a new virtual environment with another python
+virtualenv --python=python3.5 .venv
+source .venv/bin/activate
+###
+# -*- coding: utf-8 -*-
+# Print iterations progress
+def print_progress(iteration, total, prefix='', suffix='',
+                   decimals=1, bar_length=100):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+###
+vim ~/.bash_profile 
+* alias python="/usr/local/Cellar/python/3.7.0/Frameworks/
+Python.framework/Versions/3.7/bin/python3.7"
+source ~/.bash_profile
+###
+# multiple initialization
+a, b = [], {}
+# swap
+a, b = b, a
+# single tuple
+# to use tuple type 
+a = (1, )
+###
+# definations.py
+import os
+import configparser
+""" Environment defination variable, this environment variable will
+use used to pick config file """
+ENV = os.environ["ENVIRONMENT"]
+# settings
+settings = configparser.ConfigParser()
+BASEDIR = os.path.dirname(os.path.realpath(__file__))
+###
+if not resulttype_dict: raise Exception, &quot;This is my customised error message.&quot;
+###
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(URL, 'lxml')
+tag = soup.find('a', href=True)
+print(tag.parent)
+###
+# https://wandbox.org/permlink/imoBGl7tNgWngfaK
+def do_twice(func):
+    print('call do_twice: {}'.format(func))
+    def wrap(*args, **kwargs):
+        func(*args, **kwargs)
+        func(*args, **kwargs)
+    return wrap
+###
+import builtins
+dir(builtins)
+help(object)
+###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+# C extensions
+*.so
+# Distribution / packaging
+.Python
+###
+import requests
+import urllib3
+# disable warnings to make a insecure request
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+# set the proxies for HTTP and HTTPS protocol
+proxies = {'http': 'http://127.0.0.1:8080',
+           'https': 'http://127.0.0.1:8080'
+           }
+###
+import importlib
+importlib.reload(scale_by_scale_optim)
+from utils import scale_by_scale_optim
+###
+def listdir(input_dir):
+    name_list = []
+    size_list = []
+    modified_list = []
+    file_types = []
+    df = pd.DataFrame([])
+    for filename in os.listdir(input_dir):
+        filepath = os.path.join(input_dir, filename)
+        filesize = os.path.getsize(filepath)
+        file_modified = os.path.getmtime(filepath)
+###
+def cleanup_dir(dir):
+    """
+    Utility for deleting a directory. Useful for cleaning the storage space
+    that contains various training artifacts like checkpoints, data etc.
+    """
+    if os.path.isdir(dir):
+        logging.info(f"Deleting directory: {dir}")
+        os.system(f"rm -rf {dir}")
+    logging.info(f"Deleted contents of directory: {dir}")
+###
+# The sys module provides an interface to access the environment of the Python interpreter.
+# The following examples illustrate some of the most common uses of the sys module.
+# The argv attribute of the sys module is a list. The first item in the argv list is the 
+# path to the module; the rest of the list is made up of arguments that were passed to the
+# module at the beginning of execution. The sample code shows how to use the argv list to 
+# access command-line parameters passed to a Python module:
+['C:\\books\\python\\CH1\\code\\print_it.py',
+###
+import logging
+LOG_FORMAT = "%(asctime)s - %(module)s - %(levelname)s - %(message)s"
+DATE_FORMAT = "%m/%d/%Y %H:%M:%S %p"
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT, datefmt=DATE_FORMAT)
+logger = logging.getLogger()
+###
+# ----------------------------------- Environment ----------------------------------- #
+# IDE
+**/.vscode
+# Mac 
+**/.DS_Store
+# Folders
+**/__*__
+**/.history
+###
+import sys,os
+import curses
+def draw_menu(stdscr):
+    k = 0
+    cursor_x = 0
+    cursor_y = 0
+    # Clear and refresh the screen for a blank canvas
+    stdscr.clear()
+###
+from dataclasses import dataclass
+@dataclass
+class Vector3D:
+  x: int
+  y: int
+  z: int
+     u = Vector3D(1, 1, -1)
+###
+from threading import Thread, Event
+import time
+    # It sends signals from one to another thread
+bridge = Event()
+    def func():
+    print('func() is started')
+###
+def translate(phrase):
+    translation = ""
+    for letter in phrase:
+        if letter.lower() in "aeiou":
+            if letter.isupper():
+                translation = translation + "G"
+            else:
+             translation = translation + "g"
+        else:
+            translation = translation + letter
+###
+import math
+s1 = math.degrees(22)
+print(s1)
+c = 22
+f = c * 9/5 + 32
+print(f)
+s1 = 'Pseudohypoparathyroidism'
+###
+cur_dir = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(cur_dir, 'MSCOCO', 'PythonAPI'))
+if sys.version_info.major >= 3:
+    import pathlib
+else:
+    import pathlib2 as pathlib
+###
+# systemd unit file for the Python Demo Service
+[Unit]
+# Human readable name of the unit
+Description=Python Demo Service
+[Service]
+###
+# Sudo-code implementation
+(values) = [ (expression) for (value) in (collection) ]
+# Real code implementation
+squares = [ x * x for x in range(10) ]
+# creating an empty set
+new_set = set()
+###
+# Automate Win, Mac and Linux
+# pip install PyAutoGUI
+import pyautogui as py
+# Mouse Movements
+py.moveTo(100, 100)
+py.moveTo(200, 200, duration=1)
+py.click(100, 100)
+py.doubleClick(200, 200)
+# Keyboard Inputs
+py.write('Hello World!', interval=0.25)
+###
+def fetch_lines(filename):
+    with open(filename, 'r') as files:
+        lines = []
+        for line in files:
+            lines.append(line)
+        return lines
+     def yield_lines(filename):
+    with open(filename, 'r') as files:
+        yield from files
+###
+def plt_df_count(df, **kwargs):
+    col_name = kwargs.get('col_name', None)
+    title = kwargs.get('title', '')
+    if col_name is not None:
+        value_counts = df[col_name].value_counts()
+        title = col_name if not title else title
     else:
-        with open(f"{relative_to_logs('ioc.log')}", "a") as logFile:
-            logFile.write(f"{log}\n")
-
-    if debugMode == True:
-        return print(f"DEBUG LOG: {log}")
+        value_counts = df.value_counts()
+             fig = plt.figure(figsize = (6,6))
+###
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Description:
+Author: PhatLuu
+Contact: trieuphat.luu@bakerhughs.com
+Created on: 2020/06/14
+"""
+#%%
+###
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+import signal
+from os import system
+### MENU ###
+# Here are all the elements you can import
+# Box elements
+###
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 16 11:55:28 2019
+@author: rifatduru
+"""
+# %%
+var1 = "rifat" # String değişken türü
+var2 = 25   #integer Değişken türü
+###
+# Set python as python3 on mac
+ln -s -f /usr/local/bin/python[version] /usr/local/bin/python
+###
+from random import *
+from kandinsky import *
+from ion import *
+size=10
+width=320
+height=240
+r=height/size
+c=width/size
+WHITE=color(255,255,255)
+###
+print(hello world)
+###
+#Take the input from the user:   
+lower = int(input("Enter lower range: "))  
+upper = int(input("Enter upper range: "))  
+    for num in range(lower,upper + 1):  
+    if num > 1:  
+       for i in range(2,num):  
+           if (num % i) == 0:  
+                break  
+       else:  
+###
+balance_str = "3.3333333333"
+balance_int = int(float(balance_str))
+# print the type
+print(type(balance_int))
+###
+# Function to print binary number using recursion
+def convertToBinary(n):
+    if n > 1:
+       convertToBinary(n//2)
+    print(n % 2,end = '')
+# decimal number
+dec = 10
+convertToBinary(dec)
+"""
+# Program to sort alphabetically the words form
+a string provided by the user
+"""
+my_str = "Hello guys my name is techyrick"
+# To take input from the user
+#my_str = input("Enter a string: ")
+# breakdown the string into a list of words
+words = [word.lower() for word in my_str.split()]
+###
+def name():
+    return "Techy","Rick"
+# print the tuple with the returned values
+print(name())
+# get the individual items
+name_1, name_2 = name()
+print(name_1, name_2)
+###
+import pathlib
+// path of the given file
+print(pathlib.Path("my_file.txt").parent.absolute())
+// current working directory
+print(pathlib.Path().absolute())
+###
+# Set python as python3 on mac
+ln -s -f /usr/local/bin/python[version] /usr/local/bin/python
+###
+from random import *
+from kandinsky import *
+from ion import *
+size=10
+width=320
+height=240
+r=height/size
+c=width/size
+WHITE=color(255,255,255)
+###
+print(hello world
+###
+#Take the input from the user:
+lower = int(input("Enter lower range: "))  
+upper = int(input("Enter upper range: "))  
+    for num in range(lower,upper + 1):  
+    if num > 1:  
+       for i in range(2,num):  
+           if (num % i) == 0:  
+                break  
+       else:  
+###
+x=int(input("Enter No.1:")
+y=int(input("Enter No.2:")
+z=x+y
+print("Total=",z)
+###
+user = { "name": "Ed", "email": "john@yahoo.com",
+         "age": 20, "purchases": [1, 2, 3, 4]}
+user["name"] = "anna
+print(user)
+for key in user:
+    print(key)
+    
+###
+from oauth2client.service_account import ServiceAccountCredentials
+import gspread
+  
+ scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
+###
+# Default ignored files
+/shelf/
+/workspace.xml
+###
+num = float(input("Enter a number: "))  
+    if num > 0:  
+ print("{0} is a positive number".format(num))  
+elif num == 0:  
+    print("{0} is zero".format(num))   
+else:  
+    print("{0} is negative number".format(num)) 
+###
+{
+ "cells": [
+  {
+    "cell_type": "code",
+    "execution_count": 1,
+    "metadata": {},
+    "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+    }
+    ]
+  }
+ ]
+}
+###
+a = 'hello'    # 1)Create variable of type String
+print(type(a))  # <class 'str'>
+print(a)
+# 2)Create variable of type Integer
+age = 25
+print(a, "is of type", type(a))  # <class 'int'>
+# 3)Create variable of type Float
+message = 2.0
+###
+#!/usr/bin/python
+'''
+Python functions
+'''
+from __future__ import print_function
+'''
+A function is a block of organized, reusable code that is used to
+perform a single, related action. Functions provide better modularity
+###
+def dot_easy(a, b):
+    assert len(a) == len(b), 'Error, lengths must match'
+    c = [None]*len(a) # create an empty list
+    for i in range(len(a)):
+        c[i] = a[i]*b[i]
+    return c
+a, b = [1,2,3,4,5,6], [2,3,4,5,6,7]
+print(dot_easy(a,b))
+###
+def stars(format, inp):
+ starct = 0
+ for c in format:
+  if c == '&':
+    starct += 1
+ numct = 0
+ for c in inp:
+  if not c == '.':
+    numct += 1
+ if starct < numct:
+###
+print ("This is a Quiz about the Kingdom Hearts videogame series.")
+print ("Answer each question with a 1, 2 or 3.")
+points = 0
+print(" ")
+print ("A.Including his own, how many hearts are inside of Sora as of Kingdom Hearts 2?")
+print ("1. 1")
+print ("2. 2")
+print ("3. 3")
+answer_of_A = input("The answer is the option: number ")
+###
+import SimpleHTTPServer
+import SocketServer
+PORT = 80
+Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+httpd = SocketServer.TCPServer(("", PORT), Handler)
+print "serving at port", PORT
+###
+"""
+Write an efficient algorithm that searches for
+a value in an m x n matrix. This matrix has the 
+following properties: Integers in each row are
+sorted from left to right. The first integer of 
+each row is greater than the last integer of the 
+previous row.
+"""
+###
+class A(object):
+    def __init__(self):
+        self.foo = 'foofoo'
+    def print_foo(self):
+        print self.foo
+pf = A().print_foo
+pf()
+###
+# Full path to file
+os.path.join(os.path.dirname(os.path.realpath(__file__)), 'backups', 'file.zip')
+def full_path(*args):
+    """ full_path('dir', 'folder', 'file.txt') """
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)), *args)
+def full_path(filepath, *args):
+###
+"""      turtle-example-suite:
+         tdemo_round_dance.py
+(Needs version 1.1 of the turtle module that
+comes with Python 3.1)
+Dancing turtles have a compound shape
+consisting of a series of triangles of
+decreasing size.
+###
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import datetime
+last_day = datetime.date(2019,4,30)
+today = datetime.date.today()
+result = (last_day - today).days
+###
+def corutine():
+    a = 0
+    while True:
+        a += yield a
+    return a
+a = corutine()
+print(next(a))
+print(a.send(10))
+###
+from bs4 import BeautifulSoup
+import urllib.request
+page = urllib.request.urlopen('https://dev.by/')
+soup = BeautifulSoup(page.read())
+posts = soup.findAll('div', {'class': 'article-preview__info'})
+for post in posts:
+  print("")
+  title = post.find('h3', {'class': 'article-preview__title'})
+  print(title.contents[0])
+  link = post.find('a', {'class': 'article-preview__link'})
+###
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from datetime import datetime
+import calendar
+def premium_friday_check():
+    year = int(datetime.now().strftime("%Y"))
+    month = int(datetime.now().strftime("%m"))
+    length = calendar.monthrange(year,month)[1]
+###
+# http://boto3.readthedocs.io/en/latest/reference/services/kinesis.html
+import boto3
+import json
+client = boto3.client('kinesis')
+create_stream = client.create_stream(StreamName='GregorSamsa', ShardCount=150)
+streams = client.list_streams(Limit=100)
+###
+import os
+import sys
+import cv2
+import time
+import numpy as np
+from PyQt4 import QtCore, QtGui
+class END(Exception):
+  pass
+###
+class Bae:
+    much = 1.50 
+    students = 0
+    def __init__(self, first, last, grade, classement):
+        self.first = first  # These are atributes for the class
+        self.last = last
+        self.grade = grade
+        self.classement = classement
+###
+dic = dict(zip(pd.DataFrame(df).columns,f_sel.scores_))
+dic = sorted(dic.items(),key=lambda item:item[1],reverse=True)
+###
+https://www.w3schools.com/python/python_ref_keywords.asp
+and A logical operator
+as To create an alias
+assert For debugging
+break To break out of a loop
+class To define a class
+continue To continue to the next iteration of a loop
+def To define a function
+del To delete an object
+elif Used in conditional statements, same as else if
+###
+sentence = 'The quick brown fox jumped over the lazy dog'
+sentence = sentence.replace('quick', 'slow')
+print(sentence)
+###
+class  Matrix:
+          def __init__(self, body, nrow, ncol):
+        self.nrow = nrow
+        self.ncol = ncol
+        self.body = body
+        def __add__(self, other):
+            if self.nrow == other.nrow and self.ncol == other.ncol:
+                 FinalMatrix = []
+###
+from math import *
+import matplotlib.pyplot as plt
+def f(x):
+    return sin(x)*cos(x)
+     x0 = 1
+def g(h):
+    return abs(f(x0+h) - f(x0)) / h
+    
+###
+import boto3
+import argparse
+parser = argparse.ArgumentParser(prog=__file__)
+parser._action_groups.pop() # Edited this line
+required = parser.add_argument_group('required arguments')
+optional = parser.add_argument_group('optional arguments')
+required.add_argument('--group-name',required=True,
+                      help='The name of the IAM group to delete.') 
+optional.add_argument('--profile',nargs='?',default='default',
+                      help='Use a specific profile from your credential file.') 
+###
+import requests
+import json
+import argparse
+from pprint import pprint
+import urllib3
+# Surpress error messages for controllers without SSL certificates
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+parser = argparse.ArgumentParser()
+###
+birthdays={'Alice':'Aug 2','Lily':'Sep 10','Robort':'Dec 30'}
+print(birthdays[name])
+###
+from gevent import monkey
+import gevent
+import requests
+monkey.patch_socket() 
+n = 100  # 并发数量
+def worker(i):
+    """执行任务"""
+###
+# Default ignored files
+/shelf/
+/workspace.xml
+###
+from flask import Flask, request, jsonify
+import redis
+Redis = redis.StrictRedis(host='localhost', port=6379, db=0, charset="utf-8", 
+                          decode_responses=True)
+app = Flask(__name__)
+@app.route("/")
+def root():
+###
+from openpyxl import load_workbook
+from openpyxl.utils.dataframe import dataframe_to_rows
+template_fout = "<the name of empty excel file to use as template>"
+fout_name = "<the name of excel file where save the data>"
+...
+...
+...
+###
+def lcm(x, y):  
+    if x > y:  
+       greater = x  
+    else:  
+       greater = y  
+  while(True):  
+       if((greater % x == 0) and (greater % y == 0)):  
+           lcm = greater  
+           break  
+       greater += 1  
+###
+# Python program to check if the input number is odd or even.
+# A number is even if division by 2 gives a remainder of 0.
+# If the remainder is 1, it is an odd number.
+num = int(input("Enter a number: "))
+if (num % 2) == 0:
+    print("{0} is Even".format(num))
+else:
+    print("{0} is Odd".format(num))
+###
+# Program make a simple calculator
+# This function adds two numbers
+def add(x, y):
+    return x + y
+# This function subtracts two numbers
+def subtract(x, y):
+    return x - y
+###
+# Program to transpose a matrix using a nested loop
+X = [[12,999],
+    [7 ,5],
+    [90 ,9]]
+result = [[0,0,0],
+         [0,0,0]]
+# iterate through rows
+###
+from tkinter import *
+from tkinter.font import Font
+import time
+import random
+import win32com.client
+from tkinter import filedialog
+rand=-1
+slides=0
+myPresentation=None
+###
+num = int(input("Enter a number: "))  
+sum = 0  
+temp = num  
+while temp > 0:  
+    digit = temp % 10  
+    sum += digit ** 3  
+    temp //= 10  
+###
+num = int(input("Enter a number: "))  
+if num < 0:  
+    print("Enter a positive number")  
+else:  
+    sum = 0  
+    # use while loop to iterate un till zero  
+    while(num > 0):  
+        sum += num  
+        num -= 1  
+###
+def recur_fibo(n):  
+    if n <= 1:  
+       return n  
+    else:  
+       return(recur_fibo(n-1) + recur_fibo(n-2))  
+# take input from the user  
+nterms = int(input("How many terms? "))  
+# check if the number of terms is valid  
+if nterms <= 0:  
+    print("Plese enter a positive integer")  
+###
+string = input()
+try:
+    num = int(input())
+    print(string+num)
+except (TypeError, ValueError) as e:
+    print(e)
+###
+string = input()
+try:
+    num = int(input())
+    print(string+num)
+except (TypeError, ValueError) as e:
+    print(e)
+###
+from datetime import datetime
+my_date_string = "Mar 11 2011 11:31AM"
+datetime_object = datetime.strptime(my_date_string, '%b %d %Y %I:%M%p')
+print(type(datetime_object))
+print(datetime_object)
+###
+base = 36
+exponent = 55
+result = 1
+while exponent != 0:
+    result *= base
+    exponent-=1
+print("Answer = " + str(result))
+###
+import os 
+current_dir = os.path.dirname(__file__)
+def text_create(name, msg):
+    full_path = current_dir + name + '.txt'
+    file = open(full_path, 'w')
+    file.write(msg)   #msg也就是下面的Hello world!
+    # file.close()
+###
+import time
+def countdown(time_sec):
+    while time_sec:
+        mins, secs = divmod(time_sec, 60)
+        timeformat = '{:02d}:{:02d}'.format(mins, secs)
+        print(timeformat, end='\r')
+        time.sleep(1)
+        time_sec -= 1
+###
+## Performance Testing in Python
+#performs 1,000,000 times, then returns average
+import timeit
+timeit.timeit("[(a, b) for a in (1, 3, 5) for b in (2, 4, 6)]", number=1000)
+#TimeIt with Custom Functions
+from timeit import Timer
+t = Timer(lambda: function(n))
+###
+def foo(a, b=3, *args, **kwargs):
+    print(a,b,args,kwargs)
+foo(1) # 1 3 () {}
+foo(a=4,b=2) # 4 2 () {}
+foo(a=4,c=3) # 4 3 () {'c': 3}
+foo(4,1,2) # 4 1 (2,) {}
+###
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from scipy.optimize import minimize
+def test01():
+    """
+    :return:
+###
+import os
+import shutil
+source_folder = r"E:\demos\files\reports\\"
+destination_folder = r"E:\demos\files\account\\"
+# fetch all files
+for file_name in os.listdir(source_folder):
+    # construct full file path
+    source = source_folder + file_name
+###
+"""
+Given an integer n, generate a square matrix 
+filled with elements from 1 to n2 in spiral order.
+For example,
+Given n = 3,
+You should return the following matrix:
+[
+ [ 1, 2, 3 ],
+ [ 8, 9, 4 ],
+]
+###
+#!/usr/bin/python
+import sys
+from prettytable import PrettyTable
+from collections import defaultdict
+import pprint
+# Columns
+HOME_TEAM = 1
+AWAY_TEAM = 4
+###
+import random
+min = 1
+max = 6
+roll_again = "yes"
+while roll_again == "yes" or roll_again == "y":
+     print "Rolling the dices..."
+     print "The values are...."
+     print random.randint(min, max)
+###
+a = "helLo WorLd"
+a.capitilize()
+#"Hello world"
+a.upper()
+#"HELLO WORLD"
+a.lower()
+#"hello world"
+a.title()
+#"Hello World"
+###
+from django.db import models
+from django.contrib.auth.models import User
+# Create your models here.
+class Post(models.Model):
+    title = models.CharField(max_length=64, unique=True)
+    subtitle = models.CharField(max_length=128, blank=True)
+    post_datetime = models.DateTimeField(auto_now=True)
+    text = models.TextField()
+    is_active = models.BooleanField(default=False)
+###
+import os
+def CreateR():
+    with open("/Users/manojkumar/Documents/F3.txt") as f:
+        R = ['.DS_Store']
+        for x in f:
+            R.append(x.split('\n')[0])
+###
+# Hangman Game
+import random as rd
+import numpy as np 
+# choose the words
+word = ["tennis", "basketball", "baseball", "softball", "volleyball", "track",
+        "football", "soccer", "golf", "cricket", "rugby", "lacrosse", "badminton",
+        "bowling", "boxing", "hockey", "swimming", "archery", "fencing", "ultimate"]
+play = raw_input("Do you want to play the game? Answer Yes or No")
+while play == "Yes" or play == "yes" or play == " Yes" or play == " yes":
+ word1 = rd.choice(word) # this is the word they are guessing
+ word2 = " "
+###
+n = 5
+def nextMove(player,board):
+    matrix = [[0 for r in range(n)] for c in range(n)] 
+    for r in range(n):
+        for c in range(n):
+            if board[r][c] == 1:
+                matrix[r][c] += 1
+                if c+1 < n and board[r][c+1] == 1:
+                    matrix[r][c] += 1
+###
+c:\any\dir> spyder --reset
+#%reset -f
+#%%
+#091 Functions in Python
+#Creation
+def my_function():
+    print("Hello")
+#created a new function,how to call the function?
+my_function()
+#Write a function and return the value of variable of the function
+###
+echo "# Hola" - README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/freto85/Hola.git
+git push -u origin master
+###
+def checkOnError(func):
+  def return_new_func():
+    try:
+      return func()
+    except:
+        print("Error")
+  return return_new_func
+@checkOnError
+def greet():
+###
+print("hello world")
+###
+from selenium import webdriver
+from bs4 import BeautifulSoup
+import pandas as pd
+from itertools import zip_longest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+import re
+###
+def reverse_word(s):
+    result = ''
+    for word in s.split():
+        result = result + word[::-1] + ' '
+###
+frases = []
+consoante = []
+vogais = []
+especial = []
+frase = input("Digite a frase do texto\n")
+frase.lower()
+if len(frase) <= 80:
+    frases.append(frase)
+    for i in frase:
+        if i in 'aeiou':
+###
+#!/usr/bin/python
+import os, sys
+print os.path.abspath(str(sys.argv[1]))
+###
+# Program to add two matrices using nested loop
+X = [[12,7,3],
+    [4 ,5,6],
+    [7 ,8,9]]
+Y = [[5,8,1],
+    [6,7,3],
+    [4,5,9]]
+###
+python -m SimpleHTTPServer 8888
+###
+# Program to find the ASCII value of the given character
+c = 'w'
+print("The ASCII value of '" + c + "' is", ord(c))
+###
+my_list = ['a', 'b', 'c', 'd', 'y']
+# print the last element
+print(my_list[-3])
+###
+# print each statement on a new line
+print("Techyrick")
+print("Subscribe to techyrick.")
+# new line
+print()
+# print both the statements on a single line
+print("Subscribe", end=" ")
+print("to Techyrick.")
+###
+str1 = "follow"
+str2 = "r"
+# convert both the strings into lowercase
+str1 = str1.lower()
+str2 = str2.lower()
+# check if length is same
+if(len(str1) == len(str2)):
+###
+# Take a list of numbers
+my_list = [12, 65, 54, 39, 102, 339, 221,]
+# use anonymous function to filter
+result = list(filter(lambda x: (x % 13 == 0), my_list))
+# display the result
+print("Numbers divisible by 13 are",result)
+###
+print("Hello, world")
+###
+#Snake Game
+A simple Snake game built in Python using the Pygame library.
+Table of Contents
+Description
+Features
+Requirements
+Installation
+How to Play
+Controls
+###
+from math import *
+###
+from fastapi import FastAPI, Request, status
+from fastapi.responses import PlainTextResponse
+import jwt
+import logging
+logger = logging.getLogger(__name__)
+app = FastAPI()
+@app.middleware("http")
+async def auth_middleware(request: Request, call_next):
+###
+    def getAuth(self, email, password):
+        auth_url = join(self.url, 'players', 'auth')
+        resp=unirest.post('http://' + auth_url,
+        headers={'Accept':'application/json'}, params={'email':email,'password':password},
+        )
+        return json.dumps(resp.body)
+###
+import os
+from zipfile import ZipFile
+from ftplib import FTP
+ftp = FTP("192.168.4.128")
+try:
+    with open('D:/flycar-admin_last.zip', 'wb') as file:
+        ftp = FTP("192.168.4.128")
+###
+INSTALL SET UP TOOLS BY RUNNING THE COMMAND IN TERMINAL
+=>sudo apt-get install python-setuptools
+INSTALL EASY INSTALL PIP
+=>sudo easy_install pip
+INSTALL PYGLET (IMAGE PROCESSING LIBRARY)
+=>sudo pip install pyglet
+TO INSTALL MYSQL DB,FIRST WE NEED TO INSTALL DEV LIBRARIES
+###
+#! /usr/bin/env python
+# -*-coding:utf-8-*-
+def main():
+  i = input()
+  while True:
+    i = i*i
+    if i >= 10^100:
+        return False
+###
+def break_words(stuff):
+    """This function will break up words for us."""
+    words = stuff.split(' ')
+    return words
+def sort_words(words):
+    """Sort the words."""
+    return sorted(words)
+def print_first_word(words):
+###
+years = [str(item.active_from.year) for item in news_list]
+dates = list(enumerate(years, start=1))
+result_years = [key for key,group in itertools.groupby(dates, key=lambda x: x[1][:11])]
+###
+# Memory Puzzle
+# By Al Sweigart al@inventwithpython.com
+# http://inventwithpython.com/pygame
+# Released under a "Simplified BSD" license
+import random, pygame, sys
+from pygame.locals import *
+###
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+class Employee:
+   empCount = 0
+   def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+###
+def test():
+    return "Hello, world"
+###
+import glob
+import os
+test_list = []
+new_test_list = []
+test_list = glob.glob("/Users/shin/desktop/test/*")
+print(test_list)
+['/Users/shin/desktop/test/R1.txt',
+'/Users/shin/desktop/test/R10.txt', 
+'/Users/shin/desktop/test/R2.txt', 
+'/Users/shin/desktop/test/R3.txt', 
+'/Users/shin/desktop/test/R4.txt'] 
+###
+def foo(bar=[]):
+    bar.append("baz")
+    return bar
+#=========
+print dir(math)
+print type(2.)
+duck_index =animals.index("duck")
+animals = animals.insert(duck_index,"cobra")
+square_list.sort()
+###
+import functools
+def excuteImmediately(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        return fn(*args, **kwargs)
+        return wrapper()
+###
+# -*- coding: utf-8 -*-
+import MySQLdb
+DB_SERVER_IP = '*.*.*.*'
+DB_PORT = 3306
+DB = '***'
+DB_USERNAME = 'root'
+DB_PASSWORD = '******'
+###
+Let’s create a new virtual envirnoment, named myenv, using pyvenv:
+pyvenv myenv3
+source myenv3/bin/activate
+and you can start Python 3 by just typing:
+$ python
+Note that as you are inside the virtual environment,
+you don’t need to use the command python3 to open Python 3.
+###
+# python gen code sample 
+# from https://docs.python.org/2/library/htmlparser.html
+class View:
+    def __init__(self, output_name = "out.html"):
+        self.output = codecs.open(output_name, 'w', encoding='utf-8')
+        self.var = {}
+###
+CODE:
+example_dict = {"level1_key1": "1",
+                "level1_key2": {
+                    "level2_key1": "2",
+                "level2_key2": {
+                    "level3_key1": "Max depth"
+                }
+            }
+        }
+###
+    def serialize_json(self, file_path):
+        buffer = self.get_buffer()
+        self.__serialise(lambda file: json.dump(buffer, file,
+                         indent=4, sort_keys=True), file_path,
+                         args_open={'mode': 'w', 'encoding': 'utf-8'})
+    def serialize_pickle(self, file_path):
+        buffer = self.get_buffer()
+        self.__serialise(lambda file: pickle.dump(buffer, file), 
+                         file_path, args_open={'mode': 'wb'})
+###
+class MyClass:
+    variable1 = "blah"
+    variable2 = "hello"
+    def function(self):
+        print("This is a message inside the class.")
+myobjectx = MyClass()
+print(myobjectx)
+print(myobjectx.variable1)
+###
+prediction = {
+    "class":tf.argmax(input=logits, axis=1),
+    "probabilities":tf.nn.softmax(logits,name = "softmax")
+    }
+if mode == tf.estimator.ModeKeys.PREDICT:
+    return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
+    loss = tf.losses.sparse_softmax_cross_entropy
+    labels = labels,
+###
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+###################
+# usage: ./bubble_sort.py 2 3 1 4 5
+###################
+import sys
+# sys.argv[0]
+num_array = sys.argv[1:]
+###
+print("hai this is sai kumar \n now we are going  to take input from user")
+print ("tell me your name")
+yourname=str(input("enter your name :"))
+print("thanks for telling your name \n now tell me your age")
+age=int(input("enter your age : "))
+print("thanks for telling your age")
+print("now printing your age and name")
+print(yourname,"your age after five years is ",age+5)
+thanks="thanks for comming \n"
+day ="have a nice day"
+###
+def gratest_common_factor(x,y):
+    while y:
+        amari = x % y
+        x = y
+        y = amari
+    return x
+###
+def longest_common_prefix(strs):
+    if not strs:
+        return ''
+###
+import boto3, argparse
+class iam():
+    def __init__(self):
+        self.session = boto3.Session(profile_name=args.profile)
+        self.iam = self.session.resource('iam')
+    def detach_all_policies(self):  # iam_resource is group or role
+        policies = list(self.iam_resource.attached_policies.all())
+        for policy in policies:
+###
+#!/usr/bin/python
+import boto3
+iam = boto3.client('iam')
+response = iam.list_groups()
+group_name_list = [ response['GroupName'] for response in response['Groups'] ]
+for group_name in group_name_list:
+    print(group_name)
+###
+import sys
+import os
+import numpy as np
+import pandas as pd
+from tqdm.auto import tqdm
+import matplotlib.pyplot as plt
+from scipy.spatial.distance import pdist, squareform
+from itertools import chain
+###
+name = input('what is your name? ')
+print("Hi " + name)
+color = input('what is your fav.color? ')
+print(name  + " likes " + color)
+Weight = input("what is your weight(in pounds)? ")
+Weight = float(Weight) * 0.453592
+print(type(Weight))
+weight = int(Weight)
+print(type(weight))
+###
+# Python Program to find the area of triangle
+a = 7
+b = 7
+c = 7
+# Uncomment below to take inputs from the user
+# a = float(input('Enter first side: '))
+# b = float(input('Enter second side: '))
+# c = float(input('Enter third side: '))
+###
+num = float(input("Enter a number: "))
+if num > 0:
+    print("Positive number")
+elif num == 0:
+    print("Zero")
+else:
+    print("Negative number")
+###
+g=1
+while g<50: 
+    print(g)
+    g=g+2
+###
+from math import *
+###
+a=int(input(”a=”))
+b=int(input(”b=”))
+c=a%b
+print(”c=”,c)
+###
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+# create driver
+options = Options()
+# set incognito mode
+###
+class Foo(object):
+    """ len and getitem togheter creates an iterable."""
+    def __init__(self, table):
+        self.table = table
+    def __len__(self):
+        return len(self.table)
+    def __getitem__(self, index):
+        if index >= len(self):
+###
+class Account(Base):
+    __tablename__  = 'acct' 
+    __table_args__ = (
+    UniqueConstraint('code'),
+    {'schema': 'accounting'}
+    )
+    id = Column(Integer, Sequence('acct_id_seq', schema='accounting'),
+                primary_key=True)
+    code = Column(String(10), nullable=False)
+###
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
+class Aclass(object):
+    def __init__(self, name, location):
+        self.name = name
+        self.location = location
+class Bclass(Aclass):
+    def __init__(self, name, location):
+###
+class Solution:
+    # @return a list of integers
+    def getRow(self, rowIndex):
+        if rowIndex<0:
+            return None
+        result=[0]*(rowIndex+1)
+        result[0]=1
+        for i in range(1,len(result)):
+            result[i]=1
+###
+# Close hubspot
+if 'hubspotutk' in request.COOKIES:
+    url = 'http://api.hubapi.com/contacts/v1/contact/utk/{0}/profile?hapikey={1}'
+    hs_userToken = request.COOKIES['hubspotutk']
+    hs_date = datetime.date.today().strftime("%m/%d/%Y")
+    hs_client_contact = requests.get(url.format(hs_userToken, HUBSPOT_API_KEY))
+    if hs_client_contact.status_code == 200:
+        hs_response = json.loads(hs_client_contact.text)
+        hs_client_id = hs_response['vid']
+        hs_data = {'properties': {'lifecyclestage': 'customer',
+                                  'closedate': hs_date}}
+        hs_client_close = requests.post(url.format(hs_client_id, HUBSPOT_API_KEY),
+                                        data=hs_data)
+###
+# 1.Remove empty value from list
+>>> lst = ["He", "is", "so", "", "cool"]
+>>> filter(None, lst)
+['He', 'is', 'so', 'cool']
+{ False, None, 0, '', [], () }
+# 2. Regular with register ignore
+###
+#!/usr/bin/env python
+import rospy
+from std_msgs.msg import String
+rospy.init_node('talker')
+pub = rospy.Publisher('chatter', String, queue_size=10)
+rate = rospy.Rate(10)
+while not rospy.is_shutdown():
+    hello_str = "hello world %s" % rospy.get_time()
+    pub.publish(hello_str)
+###
+import random
+a=random.sample(range(20),10)
+b=random.sample(range(20),13)
+c=[i for i in a if i in b]
+print(c)
+###
+# coding: utf-8
+"""
+CheckNetIsolation LoopbackExempt
+"""
+import os
+import sys
+import subprocess
+###
+def two_lists():
+    a = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+    b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    intersection = [x for x in set(a) if x in set(b)]
+    print ("a =", a)
+    print ("b =", b)
+    print ("a and b =", intersection)
+###
+n = int(input())
+p = int(input())
+a = []
+for j in range(n):
+ a.append(j+1)
+i = 0
+k = 0
+###
+print("Hello World")
+###
+print('what is your %s? it is %s' %(q,a))
+###
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+###################
+# usage: ./run_length.py aaabbbbbcccdddefffggggg
+###################
+import sys
+# 引数を配列に格納
+num = sys.argv[1]
+###
+a = int(input())
+b = int(input())
+print (a+b)
+print (a-b)
+print (a*b)
+###
+def for_incorrect_answer():
+    # For an incorrect answer itwill work and print your answer is incorrect.
+    print "Your answer is incorrect!"
+###
+from collections import namedtuple
+A = namedtuple('A',['name','age'])
+objectA = A('eugeniy',21)
+print(objectA.name)
+###
+nums = [-1, 1, 3, -2, 2]
+result = [x for x in nums if x < 0] + [x for x in nums if x > 0]
+print(result)
+###
+import boto3
+import argparse
+parser = argparse.ArgumentParser(prog=__file__)
+parser._action_groups.pop() # Edited this line
+required = parser.add_argument_group('required arguments')
+optional = parser.add_argument_group('optional arguments')
+required.add_argument('--group-name',
+                      required=True,help='The name of the 
+                      IAM group to delete.') 
+optional.add_argument('--profile',nargs='?',default='default',
+                      help='Use a specific profile from your 
+                      credential file.') 
+###
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import asyncio
+import uvloop
+from databases import Database 
+user=xx
+pass=xx
+port=xx
+hosts= [....] # 500台 db列表
+###
+# This comment was added automatically to allow this file to save.
+# You'll be able to remove it after adding text to the file.
+tanfente a une courbe
+Equation de la tangente de la forme y=mx+p
+Dérterminons m:
+On sait que m est le coefficient directeur de la droite
+La tangente a pour coef directeur : f'(a) donc m = f'(a)
+y=f'(a)x+p
+Déterminons p:
+###
+import os
+fordestination = "destination_name"
+def renameFiles(path, new_name , depth=99):
+    print("Rename all files at " + path);
+    if depth < 0: return
+    if os.path.isdir(path) and not os.path.islink(path):
+        ind = 1
+        for file in os.listdir(path):
+###
+import os
+import binascii
+from iroha import IrohaCrypto
+from iroha import Iroha, IrohaGrpc
+from iroha.primitive_pb2 import can_set_my_account_detail
+import sys
+from Crypto.Hash import keccak
+import integration_helpers
+import json
+###
+import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import xlwt
+url = 'http://hotel.meituan.com/huangshan/'
+def get_page_num(url):
+###
+# Factorial of a number using recursion
+def recur_factorial(n):
+    if n == 1:
+        return n
+    else:
+        return n*recur_factorial(n-1)
+num = 3
+###
+# Python program to find the sum of natural using recursive function
+def recur_sum(n):
+   if n <= 1:
+       return n
+   else:
+       return n + recur_sum(n-1)
+# change this value for a different result
+num = 55
+###
+# Multiplication table (from 1 to 10) in Python
+num = 12
+# To take input from the user
+# num = int(input("Display multiplication table of? "))
+# Iterate 10 times from i = 1 to 10
+for i in range(1, 11):
+    print(num, 'x', i, '=', num*i)
+###
+from shutil import copyfile
+copyfile("/root/a.txt", "/root/b.txt")
+###
+my_list = [156, 28, 3, 894, 85]
+print(my_list[:])
+###
+# Python program to check if year is a leap year or not
+year = 2004
+# To get year (integer input) from the user
+# year = int(input("Enter a year: "))
+if (year % 4) == 0:
+    if (year % 100) == 0:
+###
+c = input("Enter a character: ")  
+print("The ASCII value of '" + c + "' is",ord(c))  
+###
+import nltk
+def tokenizar(texto):
+    portuguese_tokenizer = nltk.data.load('tokenizers/punkt/PY3/portuguese.pickle')    
+    frases = portuguese_tokenizer.tokenize(texto)
+    return [nltk.word_tokenize(frase) for frase in frases]
+nltk.download('stopwords')
+stopwords = nltk.corpus.stopwords.words('portuguese')
+###
+{% extends "base.html" %}
+{% block content %}
+<h1>Halaman 3</h1>
+<h1>Hi, {{ user.nickname }}!</h1>
+    {% for post in posts %}
+    <div><p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p></div>
+    {% endfor %}
+{% endblock %}
+<link rel="stylesheet" href="CSS.css" type="text/css"> 
+<style>
+###
+a=input()
+N = int(a)
+if N%2 != 0 or N>=6 and N<=20:
+    print("Weird")
+else:
+    print("Not Weird")
+###
+import subprocess
+bashCommand=...
+process=subprocess.Popen(bashCommand,shell=True)
+###
+class Item:
+    def __init__(self, **args):
+        self.__dict__.update(args)
+i = Item(foo=1, bar=2)
+print i.bar
+# 2
+print i.foo
+# 1
+###
+import urllib2
+urlString = 'http://pshmn.com/eaFnY'
+try:
+ handle = urllib2.urlopen(urlString)
+ handle.read()
+ handle.close()
+except IOError:
+ print "log error"
+###
+import psycopg2
+dsn = dict(
+ dbname='dbname',
+ host='hostname',
+ password='password',
+ port=5432,
+ user='username'
+)
+conn = psycopg2.connect(**dsn)
+###
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Apr 05 23:02:24 2015
+@author: Understand
+"""
+'''
+统计任意一个英文文件里的单词数目
+'''
+import io
+###
+def is_in(x, l: list) -> bool:
+    for i in l:
+        if i == x:
+            return  True
+    return False
+l1 = [10,1,-1,7,9,13]
+l2 = [2,3,1,7]
+intersection = []
+###
+#!/usr/bin/python
+# import python modules
+from socket import *
+HOST = '67.21.78.234'
+PORT = 9090
+# create our socket handler
+s = socket(AF_INET, SOCK_STREAM)
+#  when canceled out we can reuse port
+s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+# bind to interface
+###
+Python 3.4.4 (v3.4.4:737efcadf5a6, Dec 20 2015, 19:28:18) 
+[MSC v.1600 32 bit (Intel)] on win32
+Type "copyright", "credits" or "license()" for more information.
+>>> l=[1,4,6,9,4,6,2,3,0,1]
+>>> len(l)
+10
+>>> l.append(7)
+>>> l
+[1, 4, 6, 9, 4, 6, 2, 3, 0, 1, 7]
+>>> l.sort()
+>>> l
+###
+from abc import ABCMeta, abstractmethod
+class A(metaclass = ABCMeta):
+    @abstractmethod
+    def getData(self):
+        pass
+class B(A):
+    def getData(self):
+        return 'My Data'
+b = B()
+print(b.getData())
+###
+# -*- coding: utf-8 -*-
+import codecs
+import pandas as pd
+import pickle
+import numpy as np
+import time
+from collections import Counter, namedtuple
+###
+# import packages
+import pandas as pd
+import numpy as np
+from bs4 import BeautifulSoup
+import datetime
+import os
+import pyodbc
+###
+import requests
+import lxml.html
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+from dhooks import Webhook, Embed
+import random
+import discord
+from discord.ext import commands
+from threading import Thread
+import time
+###
+nterms = int(input("How many terms you want? "))  
+# first two terms  
+n1 = 0  
+n2 = 1  
+count = 2  
+# check if the number of terms is valid  
+if nterms <= 0:  
+    print("Plese enter a positive integer")  
+elif nterms == 1:  
+    print("Fibonacci sequence:")  
+###
+class ReadOnlyDict:
+    """A class represents dict with access by dot.
+    Accepts dictionary as input and provides access
+    to its elements by “.”.
+    """
+    __dd: dict
+    _read: bool
+    _change: bool
+###
+class Techyrick:
+    def name(self, name):
+        return name
+v = Techyrick()
+print(type(v).__name__)
+###
+# Validating Credit Card Numbers in Python Hacker Rank Solution
+# Python 3
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+# Validating Credit Card Numbers in Python Hacker Rank Solution START
+import re
+for i in range(int(input())):
+    S = input().strip()
+    pre_match = re.search(r'^[456]\d{3}(-?)\d{4}\1\d{4}\1\d{4}$',S)
+    if pre_match:
+        processed_string = "".join(pre_match.group(0).split('-'))
+###
+# Python program to check if the number is an Armstrong number or not
+# take input from the user
+num = int(input("Enter a number: "))
+# initialize sum
+sum = 0
+# find the sum of the cube of each digit
+temp = num
+###
+# Python Program to find the factors of a number
+# This function computes the factor of the argument passed
+def print_factors(x):
+    print("The factors of",x,"are:")
+    for i in range(1, x + 1):
+        if x % i == 0:
+            print(i)
+num = 44
+###
+# Program to multiply two matrices using nested loops
+# 3x3 matrix
+X = [[12,789,3],
+    [43 ,5,6],
+    [7 ,8,9]]
+# 3x4 matrix
+Y = [[35,8,1,2],
+    [6,733,3,933],
+    [4,5,3339,1]]
+###
+import os
+import json
+# Create your views here.
+#@login_required(login_url='shop_login')
+def shop_home(request, pk):
+    products = Product.objects.filter(shop_id=pk).order_by('pk')
+    query_item = []
+    for product in products:
+        temp_list = []
 ###
