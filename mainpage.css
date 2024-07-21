@@ -118,6 +118,24 @@ body {
     color: #dad9d8;
     
 }
+#instructions-enter {
+    position: absolute;
+    height: 31px;
+    /* left: 470px; */
+    justify-content: center;
+    background-color: #373C3F;
+    opacity: 0;
+    transition: all 26ms ease;
+    z-index:12;
+    font-family: monospace;
+    font-size: 20px;
+    border:2px solid #dad9d8;
+    border-radius: 10px;
+    /* transition: opacity 100ms ease; */
+    padding:2.5px;
+    color: #dad9d8;
+    
+}
 #loading {
     position: absolute;
     left: 50%;

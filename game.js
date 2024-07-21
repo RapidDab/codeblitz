@@ -6,6 +6,7 @@ class Game {
         this.language = document.getElementById("lang");
         this.typer = document.getElementById("typer");
         this.instructions = document.getElementById("instructions")
+        this.instructionsEnter = document.getElementById("instructions-enter")
         this.typerCss = window.getComputedStyle(this.typer)
         this.innerText = document.getElementsByTagName("p");
         this.timer = document.getElementById("timer");
@@ -24,7 +25,7 @@ class Game {
         this.incorrectText = 0;
         this.nonValid = ["Alt", "CapLock", "Control", "F1", "F2", "F3", "F4", "F5",
                          "F6", "F7", "F8", "F9", "F10", "F11", "F12", "Hyper", "Meta", "NumLock", 
-                         "Shift", "Super", "SymbolLock", "Enter", "Tab", "ArrowDown", "ArrowLeft", 
+                         "Shift", "Super", "SymbolLock", "ArrowDown", "ArrowLeft", 
                          "ArrowRight", "ArrowUp", "End", "Home", "PageDown", "PageUp", "BackSpace",
                          "Insert", "Delete"]
 
@@ -138,7 +139,7 @@ class Game {
                 game.text.style.left = "50%"
                 game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                 game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
-                if (maxWidth >= 66) {
+                if (maxWidth >= 55) {
                     game.text.style.width = `${1000 + ((maxWidth - 66) * 10)}px`
                     game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                 }
@@ -158,6 +159,11 @@ class Game {
                 }
                 game.instructions.style.top = `${game.innerText[0].getBoundingClientRect().top}px`
                 game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left - 200}px`
+                if ((game.innerText[0].getBoundingClientRect().left - 200) < 0) {
+                    game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
+                    game.instructions.style.top = `${game.innerText[0].getBoundingClientRect().top-30}px`
+                    game.instructions.innerHTML = "type to start"
+                }
                 game.typer.style.opacity = "1"
             });
     }
@@ -318,7 +324,7 @@ class Typer extends Text {
     setTransition(transition) {
         this.typer.style.transition = transition
     }
-    newLine(gameIndex, key) {
+    newLine(gameIndex, key, canMove) {
         let firstElemement = this.getInnerTextCor(this.getInnerText(this.firstElementIndex));
         let top = firstElemement.top;
         let left = firstElemement.left;
@@ -327,26 +333,34 @@ class Typer extends Text {
         let nextLeft = nextElemement.left;
         if (top != nextTop && text.index != 0) {
             if (key != " " && text.index != 0) {
-                this.setLeft(`${left}px`)
-                if (nextLeft < left && text.index != 0) {
-                    this.setLeft(`${nextLeft}px`)
+                if (this.enterNum == 0) {
+                    game.instructionsEnter.style.left = `${game.typer.getBoundingClientRect().left+15}px`
+                    game.instructionsEnter.style.top = `${game.typer.getBoundingClientRect().top-3}px`
+                    game.instructionsEnter.style.opacity = "0.85";
                 }
-                this.setTransition("all 28ms linear")
-                if (game.text.childElementCount >= 10) {
+                if (canMove == true) {
+                     this.setLeft(`${left}px`)
+                    if (nextLeft < left && text.index != 0) {
+                        this.setLeft(`${nextLeft}px`)
+                    }
+                    this.setTransition("all 28ms linear")
+                    if (game.text.childElementCount >= 10) {
 
-                    if (this.enterNum+1 >= Math.round(game.text.childElementCount/2)) {
-                        game.text.style.top = `${game.text.getBoundingClientRect().top - 30}px`
+                        if (this.enterNum+1 >= Math.round(game.text.childElementCount/2)) {
+                            game.text.style.top = `${game.text.getBoundingClientRect().top - 30}px`
+                        } else {
+                            this.setTop(`${nextTop - 3.5}px`)
+                        }
                     } else {
                         this.setTop(`${nextTop - 3.5}px`)
                     }
-                } else {
-                    this.setTop(`${nextTop - 3.5}px`)
-                }
-                
+                    
 
-                this.enterNum += 1;
-                this.firstElementIndex = gameIndex + 1
-                text.index += 1;
+                    this.enterNum += 1;
+                    this.firstElementIndex = gameIndex + 1
+                    text.index += 1;
+                }
+
                 return true
             }
         } else {
@@ -387,6 +401,11 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("resize", () => {
     game.typer.style.left = `${game.innerText[text.index].getBoundingClientRect().left}px`
     game.typer.style.top = `${game.window.top.split('px')[0] - 35}px`
+    game.instructions.style.top = `${game.window.top.split('px')[0] - 35}px`
+    game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left - 200}px`
+    game.instructionsEnter.style.left = `${game.typer.getBoundingClientRect().left+15}px`
+    game.instructionsEnter.style.top = `${game.typer.getBoundingClientRect().top-3}px`
+
 
     document.body.style.overflow = 'hidden';
 })
@@ -406,6 +425,7 @@ game.reset.addEventListener("keydown", (e) => {
         game.typer.style.opacity = "0";
         game.resetAssets();
         game.instructions.style.opacity = "1"
+        game.instructionsEnter.style.opacity = "0"
     }
 })
 let op = 1;
@@ -448,7 +468,7 @@ window.addEventListener("keydown", (e) => {
         if (startGame == true) {
             var sec = new Date();
             let interval = 1000;
-            sec.setSeconds(sec.getSeconds() + 30);
+            sec.setSeconds(sec.getSeconds() + 15);
             timer = setInterval(function () {
                 this.interval = 1000;
                 let now = new Date();
@@ -494,7 +514,7 @@ if (game.moveTyper === true) {
             // console.log(game.reset.onfocus)
             // game.instructions.style.opacity = "0"
             timeKey.push(parseFloat(timePress.getSeconds() + "." + timePress.getMilliseconds()))
-            if (text.index == 0 && game.nonValid.includes(e.key) == false) {
+            if (text.index == 0 && game.nonValid.includes(e.key) == false && e.key != "Enter" && e.key != "Tab") {
                 game.switchWindowes()
             }
             if (text.index > 0) {
@@ -517,7 +537,7 @@ if (game.moveTyper === true) {
                     typer.setLeft(game.changePixelValue(game.typerCss.left, backSize))
                 }
             }
-            else if (e.key == " " && typer.newLine(text.index, e.key) == false) {
+            else if (e.key == " " && typer.newLine(text.index, e.key, true) == false) {
                 if (game.innerText[text.index].innerHTML == "&nbsp;") {
                     game.innerText[text.index].style.backgroundColor = "#373C3F"
                     text.setBackgroundColor("#373C3F")
@@ -527,8 +547,9 @@ if (game.moveTyper === true) {
                     text.index += 1;
                 }
             }
-            else if (e.key == "Enter" && game.reset.onfocus == null) {
-                typer.newLine(text.index, e.key)
+            else if (e.key == "Enter") {
+                typer.newLine(text.index, e.key, true)
+                game.instructionsEnter.style.opacity = "0"
                 let k = text.index - 1;
 
             }
@@ -559,6 +580,7 @@ if (game.moveTyper === true) {
                     }
                 }
             }
+            typer.newLine(text.index, e.key, false)
         }
         const buffer = text.getTextWidth(game.innerText[text.index].innerHTML, text.getCanvasFont(game.innerText[text.index]));
         copyTyper = typer.getLeft().split("px")[0];
