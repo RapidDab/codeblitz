@@ -96,11 +96,12 @@ body {
     position:absolute;
     width: 3px;
     height: 31px;
+    left: -100;
     /* left: 470px; */
     justify-content: center;
     background-color: white;
     opacity: 1;
-    transition: all 26ms ease;
+    /* transition: all 26ms ease; */
     z-index:12;
         
 }

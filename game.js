@@ -43,6 +43,9 @@ class Game {
             })
             .then(function (data) {
                 game.typer.style.opacity = "0";
+                game.timer.style.opacity = "0"
+                // game.timer.style.animationPlayState = "paused";
+                // this.animation.style.animation = "none"
                 let textFromTxt = data.toString().split("###");
                 let random = Math.floor(Math.random() * textFromTxt.length)
                 let text = textFromTxt[parseInt(random)].split("\n")
@@ -138,7 +141,7 @@ class Game {
                 game.text.style.width = `${1000 + (game.maxWidth * 3)}px`
                 game.text.style.left = "50%"
                 game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
-                game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
+                // game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
                 if (maxWidth >= 55) {
                     game.text.style.width = `${1000 + ((maxWidth - 66) * 10)}px`
                     game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
@@ -146,12 +149,14 @@ class Game {
                 if (newText.length <= 10 && newText.length > 6) {
                     game.text.style.top = "43%"
                     game.text.style.left = "50%"
+                    // game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                     game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 3}px`
                     game.language.style.top = `${game.typer.style.top.split("px")[0] - 70}px`
                 }
                 else if (newText.length <= 6) {
                     game.text.style.top = "50%"
                     game.text.style.left = "50%"
+                    // game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                     game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
                     game.language.style.top = `${game.typer.style.top.split("px")[0] - 70}px`
                 } else {
@@ -164,7 +169,7 @@ class Game {
                     game.instructions.style.top = `${game.innerText[0].getBoundingClientRect().top-30}px`
                     game.instructions.innerHTML = "type to start"
                 }
-                game.typer.style.opacity = "1"
+                // game.typer.style.opacity = "1"
             });
     }
     setUpAssets() {
@@ -192,9 +197,9 @@ class Game {
         // game.instructions.style.opacity = "1"
         game.language.style.animationPlayState = "running";
         game.navbar.style.animationPlayState = "running";
-        game.timer.style.animationPlayState = "running";
+        game.timer.style.animationPlayState = "paused";
         startGame = true;
-        game.timer.innerHTML = "15"
+        // game.timer.innerHTML = "15"
         text.index = 0;
         game.reset.blur()
         game.tabBool = true
@@ -423,6 +428,8 @@ game.reset.addEventListener("keydown", (e) => {
         }
         clearInterval(timer);
         game.typer.style.opacity = "0";
+        game.timer.style.opacity = "0"
+
         game.resetAssets();
         game.instructions.style.opacity = "1"
         game.instructionsEnter.style.opacity = "0"
@@ -481,6 +488,7 @@ window.addEventListener("keydown", (e) => {
                     clearInterval(timer);
                     game.instructions.style.opacity = "0";
                     game.timer.style.opacity = "0";
+                    game.typer.style.opacity = "0";
                     game.resetOpacity();
                 }
 
@@ -515,6 +523,7 @@ if (game.moveTyper === true) {
             // game.instructions.style.opacity = "0"
             timeKey.push(parseFloat(timePress.getSeconds() + "." + timePress.getMilliseconds()))
             if (text.index == 0 && game.nonValid.includes(e.key) == false && e.key != "Enter" && e.key != "Tab") {
+                game.timer.style.animationPlayState = "running";
                 game.switchWindowes()
             }
             if (text.index > 0) {
@@ -550,6 +559,7 @@ if (game.moveTyper === true) {
             else if (e.key == "Enter") {
                 typer.newLine(text.index, e.key, true)
                 game.instructionsEnter.style.opacity = "0"
+                game.typer.style.transition = "none"
                 let k = text.index - 1;
 
             }
@@ -585,7 +595,7 @@ if (game.moveTyper === true) {
         const buffer = text.getTextWidth(game.innerText[text.index].innerHTML, text.getCanvasFont(game.innerText[text.index]));
         copyTyper = typer.getLeft().split("px")[0];
         if ((Math.round(game.innerText[text.index].getBoundingClientRect().left) != Math.round(copyTyper)) &&
-            (Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(copyTyper)) < 40) {
+            (Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(copyTyper)) < 40 && text.index != 0) {
             typer.setLeft(`${game.innerText[text.index].getBoundingClientRect().left}px`)
         }
     });
