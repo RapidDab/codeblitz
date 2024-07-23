@@ -426,7 +426,8 @@ window.addEventListener("resize", () => {
     game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left - 200}px`
     game.instructionsEnter.style.left = `${game.typer.getBoundingClientRect().left+15}px`
     game.instructionsEnter.style.top = `${game.typer.getBoundingClientRect().top-3}px`
-    game.timer.style.left = game.changePixelValue(game.window.left, 500)
+    game.timer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
+    game.timer.style.top = `${game.innerText[0].getBoundingClientRect().top - 100}px`
 
 
     document.body.style.overflow = 'hidden';
