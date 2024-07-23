@@ -445,7 +445,6 @@ game.reset.addEventListener("keydown", (e) => {
             game.text.removeChild(game.text.lastElementChild);
         }
         clearInterval(timer);
-        game.typer.style.opacity = "0";
         game.timer.style.opacity = "0"
 
         game.resetAssets();
