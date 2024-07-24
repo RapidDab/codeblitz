@@ -43,6 +43,9 @@ class Game {
             })
             .then(function (data) {
                 game.typer.style.opacity = "0";
+                game.timer.style.opacity = "0"
+                // game.timer.style.animationPlayState = "paused";
+                // this.animation.style.animation = "none"
                 let textFromTxt = data.toString().split("###");
                 let random = Math.floor(Math.random() * textFromTxt.length)
                 let text = textFromTxt[parseInt(random)].split("\n")
@@ -138,7 +141,7 @@ class Game {
                 game.text.style.width = `${1000 + (game.maxWidth * 3)}px`
                 game.text.style.left = "50%"
                 game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
-                game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
+                // game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
                 if (maxWidth >= 55) {
                     game.text.style.width = `${1000 + ((maxWidth - 66) * 10)}px`
                     game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
@@ -146,12 +149,14 @@ class Game {
                 if (newText.length <= 10 && newText.length > 6) {
                     game.text.style.top = "43%"
                     game.text.style.left = "50%"
+                    // game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                     game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 3}px`
                     game.language.style.top = `${game.typer.style.top.split("px")[0] - 70}px`
                 }
                 else if (newText.length <= 6) {
                     game.text.style.top = "50%"
                     game.text.style.left = "50%"
+                    // game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                     game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
                     game.language.style.top = `${game.typer.style.top.split("px")[0] - 70}px`
                 } else {
@@ -164,7 +169,7 @@ class Game {
                     game.instructions.style.top = `${game.innerText[0].getBoundingClientRect().top-30}px`
                     game.instructions.innerHTML = "type to start"
                 }
-                game.typer.style.opacity = "1"
+                // game.typer.style.opacity = "1"
             });
     }
     setUpAssets() {
@@ -190,12 +195,11 @@ class Game {
         game.WPM_Num.style.opacity = "0";
         game.text.style.opacity = "1";
         // game.instructions.style.opacity = "1"
-        game.animation.style.animationPlayState = "running"
         game.language.style.animationPlayState = "running";
         game.navbar.style.animationPlayState = "running";
-        game.timer.style.animationPlayState = "running";
+        game.timer.style.animationPlayState = "paused";
         startGame = true;
-        game.timer.innerHTML = "15"
+        // game.timer.innerHTML = "15"
         text.index = 0;
         game.reset.blur()
         game.tabBool = true
@@ -214,11 +218,23 @@ class Game {
         game.instructions.style.opacity = "0";
     }
     switchWindowes() {
+        function fade(element) {
+            var op = 1;  // initial opacity
+            var timer = setInterval(function () {
+                if (op <= 0.1){
+                    clearInterval(timer);
+                    element.style.display = 'none';
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op -= op * 0.4;
+            }, 20);
+        }
         this.animation.style.animation = "none";
         this.timer.style.opacity = "1";
         this.navbar.style.opacity = "0";
         this.language.style.opacity = "0";
-        game.instructions.style.opacity = "0";
+        fade(game.instructions)
         this.language.style.animationPlayState = "running";
         this.navbar.style.animationPlayState = "running";
         this.timer.style.animationPlayState = "running";
@@ -306,6 +322,7 @@ class Typer extends Text {
         super()
         this.firstElementIndex = 0;
         this.enterNum = 0;
+        this.firstLine = true
     }
     gerInnerHTML(gameElement) {
         return gameElement.innerHTML
@@ -326,6 +343,7 @@ class Typer extends Text {
         this.typer.style.transition = transition
     }
     newLine(gameIndex, key, canMove) {
+
         let firstElemement = this.getInnerTextCor(this.getInnerText(this.firstElementIndex));
         let top = firstElemement.top;
         let left = firstElemement.left;
@@ -334,7 +352,8 @@ class Typer extends Text {
         let nextLeft = nextElemement.left;
         if (top != nextTop && text.index != 0) {
             if (key != " " && text.index != 0) {
-                if (this.enterNum == 0) {
+                if (this.firstLine == true) {
+                    console.log(this.enterNum)
                     game.instructionsEnter.style.left = `${game.typer.getBoundingClientRect().left+15}px`
                     game.instructionsEnter.style.top = `${game.typer.getBoundingClientRect().top-3}px`
                     game.instructionsEnter.style.opacity = "0.85";
@@ -358,10 +377,11 @@ class Typer extends Text {
                     
 
                     this.enterNum += 1;
+                    this.firstLine = false
                     this.firstElementIndex = gameIndex + 1
                     text.index += 1;
                 }
-
+                this.firstLine = false
                 return true
             }
         } else {
@@ -406,6 +426,8 @@ window.addEventListener("resize", () => {
     game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left - 200}px`
     game.instructionsEnter.style.left = `${game.typer.getBoundingClientRect().left+15}px`
     game.instructionsEnter.style.top = `${game.typer.getBoundingClientRect().top-3}px`
+    game.timer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
+    game.timer.style.top = `${game.innerText[0].getBoundingClientRect().top - 100}px`
 
 
     document.body.style.overflow = 'hidden';
@@ -424,6 +446,8 @@ game.reset.addEventListener("keydown", (e) => {
         }
         clearInterval(timer);
         game.typer.style.opacity = "0";
+        game.timer.style.opacity = "0"
+
         game.resetAssets();
         game.instructions.style.opacity = "1"
         game.instructionsEnter.style.opacity = "0"
@@ -482,6 +506,7 @@ window.addEventListener("keydown", (e) => {
                     clearInterval(timer);
                     game.instructions.style.opacity = "0";
                     game.timer.style.opacity = "0";
+                    game.typer.style.opacity = "0";
                     game.resetOpacity();
                 }
 
@@ -516,6 +541,7 @@ if (game.moveTyper === true) {
             // game.instructions.style.opacity = "0"
             timeKey.push(parseFloat(timePress.getSeconds() + "." + timePress.getMilliseconds()))
             if (text.index == 0 && game.nonValid.includes(e.key) == false && e.key != "Enter" && e.key != "Tab") {
+                game.timer.style.animationPlayState = "running";
                 game.switchWindowes()
             }
             if (text.index > 0) {
@@ -550,7 +576,21 @@ if (game.moveTyper === true) {
             }
             else if (e.key == "Enter") {
                 typer.newLine(text.index, e.key, true)
-                game.instructionsEnter.style.opacity = "0"
+                // game.instructionsEnter.style.opacity = "0"
+                function fade(element) {
+                    var op = 1;  // initial opacity
+                    var timer = setInterval(function () {
+                        if (op <= 0.1){
+                            clearInterval(timer);
+                            element.style.display = 'none';
+                        }
+                        element.style.opacity = op;
+                        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                        op -= op * 0.4;
+                    }, 20);
+                }
+                fade(game.instructionsEnter)
+                game.typer.style.transition = "none"
                 let k = text.index - 1;
 
             }
@@ -586,7 +626,7 @@ if (game.moveTyper === true) {
         const buffer = text.getTextWidth(game.innerText[text.index].innerHTML, text.getCanvasFont(game.innerText[text.index]));
         copyTyper = typer.getLeft().split("px")[0];
         if ((Math.round(game.innerText[text.index].getBoundingClientRect().left) != Math.round(copyTyper)) &&
-            (Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(copyTyper)) < 40) {
+            (Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(copyTyper)) < 40 && text.index != 0) {
             typer.setLeft(`${game.innerText[text.index].getBoundingClientRect().left}px`)
         }
     });
@@ -599,3 +639,8 @@ let flickerKeyFrame = new KeyframeEffect(
     [{ opacity: [1, 0, 1] }],
     { duration: 30, iterations: 3 }
 );
+
+
+
+
+
