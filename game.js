@@ -1,7 +1,8 @@
 class Game {
     constructor() {
         this.text = document.getElementById("maintext");
-        this.hiddenText = document.getElementById("hidden-text-top")
+        this.hiddenTextTop = document.getElementById("hidden-text-top")
+        this.hiddenTextBottom = document.getElementById("hidden-text-bottom")
         this.window = window.getComputedStyle(this.text);
         this.language = document.getElementById("lang");
         this.typer = document.getElementById("typer");
@@ -23,6 +24,8 @@ class Game {
         this.maxWidth = 0;
         this.tabBool = true
         this.incorrectText = 0;
+        this.animationcopy = null;
+        this.animationcopytimer = window.getComputedStyle(this.timer).animation
         this.nonValid = ["Alt", "CapLock", "Control", "F1", "F2", "F3", "F4", "F5",
                          "F6", "F7", "F8", "F9", "F10", "F11", "F12", "Hyper", "Meta", "NumLock", 
                          "Shift", "Super", "SymbolLock", "ArrowDown", "ArrowLeft", 
@@ -58,7 +61,7 @@ class Game {
                         if (list[i][0] == " ") {
                             function outer(k) {
                                 if (list[i][k] != " ") {
-                                    newText.push(">".repeat((k / 4)) + list[i].slice(k).toString())
+                                    newText.push("↔".repeat((k / 4)) + list[i].slice(k).toString())
                                 } else {
                                     outer(k + 1)
                                 }
@@ -90,11 +93,13 @@ class Game {
                     } else {
                         div = document.createElement("div");
                         div.setAttribute("id", "word");
-                        if (newText[i].includes(">") && newText[i].includes("->") == false) {
+                        if (newText[i].includes("↔") && newText[i].includes("->") == false) {
                             let q = 0;
+                            // let index = 0
                             for (let k = 0; k < newText[i].length; k++) {
-                                if (newText[i][k] == ">") {
-                                    q += 1
+                                if (newText[i][k] == "↔") {
+                                    // index = 
+                                    q+=1;
                                 }
                             }
                             div.style.left = `${2 * q}em`
@@ -113,7 +118,7 @@ class Game {
                                 div.appendChild(p)
                                 game.text.appendChild(div)
                             } else {
-                                if (newText[i][k] != undefined && newText[i][k] != ">" && newText[i][k] != "") {
+                                if (newText[i][k] != undefined && newText[i][k] != "↔" && newText[i][k] != "") {
                                     if (newText[i][k] == "-" && newText[i][k + 1] == ">") {
                                         p = document.createElement("p");
                                         p.style.display = "inline";
@@ -140,6 +145,8 @@ class Game {
                 game.maxWidth = maxWidth;
                 game.text.style.width = `${1000 + (game.maxWidth * 3)}px`
                 game.text.style.left = "50%"
+                
+                game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top}px`
                 game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                 // game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
                 if (maxWidth >= 55) {
@@ -147,7 +154,7 @@ class Game {
                     game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                 }
                 if (newText.length <= 10 && newText.length > 6) {
-                    game.text.style.top = "43%"
+                    game.text.style.top = "45%"
                     game.text.style.left = "50%"
                     // game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                     game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 3}px`
@@ -158,17 +165,22 @@ class Game {
                     game.text.style.left = "50%"
                     // game.typer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                     game.typer.style.top = `${game.innerText[0].getBoundingClientRect().top - 4}px`
-                    game.language.style.top = `${game.typer.style.top.split("px")[0] - 70}px`
+                    game.language.style.top = `${game.typer.style.top.split("px")[0] - 80}px`
                 } else {
                     game.language.style.top = game.changePixelValue(game.window.top, 70)
                 }
                 game.instructions.style.top = `${game.innerText[0].getBoundingClientRect().top}px`
                 game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left - 200}px`
-                if ((game.innerText[0].getBoundingClientRect().left - 200) < 0) {
+                if ((game.innerText[0].getBoundingClientRect().left) < 200) {
                     game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                     game.instructions.style.top = `${game.innerText[0].getBoundingClientRect().top-30}px`
                     game.instructions.innerHTML = "type to start"
+                    game.language.style.top = `${game.instructions.style.top.split("px")[0] - 20}px`
+                } else {
+                    game.instructions.innerHTML = "type to start ->"
                 }
+                game.timer.style.top = `${game.innerText[0].getBoundingClientRect().top - 60}px`
+                game.timer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
                 // game.typer.style.opacity = "1"
             });
     }
@@ -194,15 +206,19 @@ class Game {
         game.WPM.style.opacity = "0";
         game.WPM_Num.style.opacity = "0";
         game.text.style.opacity = "1";
-        // game.instructions.style.opacity = "1"
+        game.instructions.style.opacity = "1"
         game.language.style.animationPlayState = "running";
         game.navbar.style.animationPlayState = "running";
-        game.timer.style.animationPlayState = "paused";
-        startGame = true;
+        game.timer.style.animationPlayState = "running";
+        game.animation.style.animationPlayState = "running"
+        game.timer.style.animation = `${game.animationcopytimer}`;
+        game.timer.innerHTML = "15"
+        startGame = true;    
         // game.timer.innerHTML = "15"
         text.index = 0;
         game.reset.blur()
         game.tabBool = true
+        text.incorrectText = 0;
     }
     resetOpacity() {
         game.WPM.style.opacity = "1";
@@ -214,31 +230,37 @@ class Game {
         game.navbar.style.opacity = "0";
         game.language.style.opacity = "0";
         game.text.style.opacity = "0";
-        game.typer.style.opacity = "0"
+        game.typer.style.opacity = "0";
         game.instructions.style.opacity = "0";
+        game.instructionsEnter.style.opacity = "0";
+    }
+    fade(element) {
+        var op = 1;  // initial opacity
+        var timer = setInterval(function () {
+            if (op <= 0.1){
+                clearInterval(timer);
+                element.style.display = 'none';
+            }
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+            op -= op * 0.4;
+        }, 20);
     }
     switchWindowes() {
-        function fade(element) {
-            var op = 1;  // initial opacity
-            var timer = setInterval(function () {
-                if (op <= 0.1){
-                    clearInterval(timer);
-                    element.style.display = 'none';
-                }
-                element.style.opacity = op;
-                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-                op -= op * 0.4;
-            }, 20);
-        }
+        game.animationcopy = window.getComputedStyle(this.animation).animation
         this.animation.style.animation = "none";
-        this.timer.style.opacity = "1";
-        this.navbar.style.opacity = "0";
-        this.language.style.opacity = "0";
-        fade(game.instructions)
-        this.language.style.animationPlayState = "running";
-        this.navbar.style.animationPlayState = "running";
-        this.timer.style.animationPlayState = "running";
-        this.animation.style.animationPlayState = "paused"
+        game.timer.style.opacity = "1";
+        game.navbar.style.opacity = "0";
+        game.language.style.opacity = "0";
+        // game.fade(game.instructions)
+        game.instructions.style.animationPlayState = "running";
+        game.instructions.style.opacity = "0";
+        game.language.style.animationPlayState = "running";
+        game.navbar.style.animationPlayState = "running";
+        game.timer.style.animationPlayState = "running";
+        game.animation.style.animationPlayState = "paused"
+        // game.typer.style.opacity = "1"
+        // game.tyer
         game.tabBool = true
         text.index = 0;
     }
@@ -359,6 +381,12 @@ class Typer extends Text {
                     game.instructionsEnter.style.opacity = "0.85";
                 }
                 if (canMove == true) {
+                    if (text.index >= game.innerText.length) {
+                        clearInterval(timer)
+                        game.instructions.style.opacity = "0";
+                        game.timer.style.opacity = "0";
+                        game.resetOpacity();
+                    }
                      this.setLeft(`${left}px`)
                     if (nextLeft < left && text.index != 0) {
                         this.setLeft(`${nextLeft}px`)
@@ -421,16 +449,27 @@ window.addEventListener("keydown", (e) => {
 })
 window.addEventListener("resize", () => {
     game.typer.style.left = `${game.innerText[text.index].getBoundingClientRect().left}px`
-    game.typer.style.top = `${game.window.top.split('px')[0] - 35}px`
+    game.typer.style.top = `${game.innerText[text.index].getBoundingClientRect().top - 3}px`
     game.instructions.style.top = `${game.window.top.split('px')[0] - 35}px`
     game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left - 200}px`
     game.instructionsEnter.style.left = `${game.typer.getBoundingClientRect().left+15}px`
     game.instructionsEnter.style.top = `${game.typer.getBoundingClientRect().top-3}px`
     game.timer.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
     game.timer.style.top = `${game.innerText[0].getBoundingClientRect().top - 100}px`
-
-
+    game.language.style.top = `${game.typer.style.top.split("px")[0] - 70}px`
     document.body.style.overflow = 'hidden';
+    game.hiddenTextTop.style.height = `${game.language.getBoundingClientRect().top}px`
+    if ((game.innerText[0].getBoundingClientRect().left) < 200) {
+        game.instructions.style.left = `${game.innerText[0].getBoundingClientRect().left}px`
+        game.instructions.style.top = `${game.innerText[0].getBoundingClientRect().top-30}px`
+        game.instructions.innerHTML = "type to start"
+        game.language.style.top = `${game.instructions.style.top.split("px")[0] - 15}px`
+    } else {
+        game.instructions.innerHTML = "type to start ->"
+    }
+    
+
+
 })
 let copy = game.animation.style.animation;
 var sec = null;
@@ -445,11 +484,17 @@ game.reset.addEventListener("keydown", (e) => {
             game.text.removeChild(game.text.lastElementChild);
         }
         clearInterval(timer);
-        game.typer.style.opacity = "0";
+        // game.typer.style.opacity = "0";
         game.timer.style.opacity = "0"
-
-        game.resetAssets();
+        // game.animation.style.animation = "flickerAnimation"
+        if (text.index > 0) {
+            game.animation.style.animation = `${game.animationcopy}`
+        }
+        game.timer.style.animation = "none";
+        // game.timer.innerHTML = "";
         game.instructions.style.opacity = "1"
+        game.resetAssets();
+        
         game.instructionsEnter.style.opacity = "0"
     }
 })
@@ -464,7 +509,18 @@ game.reset.addEventListener("click", (e) => {
         game.text.removeChild(game.text.lastElementChild);
     }
     clearInterval(timer);
+    // game.typer.style.opacity = "0";
+    game.timer.style.opacity = "0"
+    // game.animation.style.animation = "flickerAnimation"
+    if (text.index > 0) {
+        game.animation.style.animation = `${game.animationcopy}`
+    }
+    game.timer.style.animation = "none";
+    // game.timer.innerHTML = "";
+    game.instructions.style.opacity = "1"
     game.resetAssets();
+    
+    game.instructionsEnter.style.opacity = "0"
 })
 const wait = (delay = 0) => new Promise(resolve => setTimeout(resolve, delay))
 
@@ -493,7 +549,7 @@ window.addEventListener("keydown", (e) => {
         if (startGame == true) {
             var sec = new Date();
             let interval = 1000;
-            sec.setSeconds(sec.getSeconds() + 15);
+            sec.setSeconds(sec.getSeconds() + 30);
             timer = setInterval(function () {
                 this.interval = 1000;
                 let now = new Date();
@@ -506,8 +562,10 @@ window.addEventListener("keydown", (e) => {
                     clearInterval(timer);
                     game.instructions.style.opacity = "0";
                     game.timer.style.opacity = "0";
-                    game.typer.style.opacity = "0";
                     game.resetOpacity();
+                    // game.animation.style.animation = "none"
+                    // game.typer.style.opacity = "0"
+                    // game.typer.style.left= "-10px";
                 }
 
             }, 1000);
@@ -532,15 +590,16 @@ let copyTyper = null;
 if (game.moveTyper === true) {
     window.addEventListener("keydown", (e) => {
         if (game.nonValid.includes(e.key) == false) {
+            // console.log(text.index, game.innerText)
             let timePress = new Date()
             keyPressed.push(e.key)
             e.preventDefault()
             typer.setTransition("all 28ms linear")
-            game.typer.style.opacity = "1";
             // console.log(game.reset.onfocus)
             // game.instructions.style.opacity = "0"
             timeKey.push(parseFloat(timePress.getSeconds() + "." + timePress.getMilliseconds()))
             if (text.index == 0 && game.nonValid.includes(e.key) == false && e.key != "Enter" && e.key != "Tab") {
+                game.typer.style.opacity = "1";
                 game.timer.style.animationPlayState = "running";
                 game.switchWindowes()
             }
@@ -574,7 +633,7 @@ if (game.moveTyper === true) {
                     text.index += 1;
                 }
             }
-            else if (e.key == "Enter") {
+            else if (e.key == "Enter" && text.index > 0) {
                 typer.newLine(text.index, e.key, true)
                 // game.instructionsEnter.style.opacity = "0"
                 function fade(element) {
@@ -621,12 +680,23 @@ if (game.moveTyper === true) {
                     }
                 }
             }
-            typer.newLine(text.index, e.key, false)
+            console.log(text.index, game.innerText.length-6)  
+            if (text.index >= game.innerText.length-7 && text.index > 2) {
+                clearInterval(timer);
+                game.instructions.style.opacity = "0";
+                game.timer.style.opacity = "0";
+                game.instructionsEnter.style.opacity = "0"
+                game.resetOpacity();
+            }
+            if (e.key != "Enter") {
+              typer.newLine(text.index, e.key, false)  
+            }
+            
         }
         const buffer = text.getTextWidth(game.innerText[text.index].innerHTML, text.getCanvasFont(game.innerText[text.index]));
         copyTyper = typer.getLeft().split("px")[0];
         if ((Math.round(game.innerText[text.index].getBoundingClientRect().left) != Math.round(copyTyper)) &&
-            (Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(copyTyper)) < 40 && text.index != 0) {
+            (Math.round(game.innerText[text.index].getBoundingClientRect().left) - Math.round(copyTyper)) < 40 && text.index != 0 && game.tabBool) {
             typer.setLeft(`${game.innerText[text.index].getBoundingClientRect().left}px`)
         }
     });

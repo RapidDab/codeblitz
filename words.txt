@@ -102,14 +102,11 @@ from pathlib import Path
 THIS_PATH = pathlib.Path(__file__).parent.absolute()
 ASSETS_PATH = THIS_PATH / Path("aarch64")
 
-
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-
 def relative_to_target(path: str) -> Path:
     return THIS_PATH / Path(path)
-
 
 def copy_and_overwrite(from_path, to_path):
     if os.path.exists(to_path):
@@ -143,8 +140,9 @@ sample = ['a', 'b', 'c', 'd', 'e']
 print(random.choice(sample))
 """
 # For cryptographically secure random choices (e.g., for generating
-a passphrase from a wordlist), use secrets.choice(): 
+a passphrase from a wordlist), use secrets.choice():
 """
+###
 import secrets
 
 sample = ['battery', 'correct', 'horse', 'staple']
@@ -178,7 +176,7 @@ rootNeeded = subprocess.call(["/usr/bin/sudo", "/usr/bin/id"])
     def writeString():
         # Write a string at the end of a JPG file.
         with open(relative_to_assets('photo.jpg'), 'ab') as f:
-            f.write(b' Hidden message: test :)')
+            f.write(b' Hidden message: test :)
     def readString():
         # Read HEX of the JPG file.
         with open(relative_to_assets('photo.jpg'), 'rb') as f:
@@ -202,7 +200,8 @@ files = os.listdir(ASSETS_PATH)
 
 # Interesting solution to pick specific files inside a list.
 for file in files:
-    if file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg"):
+    if file.endswith(".png") or file.endswith(".jpg") 
+                            or file.endswith(".jpeg"):
       print(f"Optimizing {file}")
       imgOptimize = Image.open(relative_to_assets(str(file)))
       imgWidth, imgHeight = imgOptimize.size
@@ -220,7 +219,7 @@ def validate(string):
     result = re.match(r"(\+|\-)?\d+(\.\d+)?$", string)
     return result is not None
 ###
-# Simple like that :)
+# Simple like that
 userString = input("Enter a text: ")
 print(userString[::-1]) # Reverse the string
 ###
@@ -235,15 +234,12 @@ num_map = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), (100, 'C'), (90, '
 
 
 def num2roman(num):
-
     roman = ''
-
     while num > 0:
         for i, r in num_map:
             while num >= i:
                 roman += r
                 num -= i
-
     return roman
 ###
 # Simple formulas to convert temperature from Celsius to Fahrenheit and vice versa.
@@ -251,7 +247,7 @@ fahrenheit = celsius * 9 / 5 + 32
 celsius = (fahrenheit - 32) * 5 / 9
 ###
 import os
-nameGen = "Hello there :)"
+nameGen = "Hello there"
 # Copy to the variable "nameGen" to the clipboard
 os.system(f"echo {nameGen} | pbcopy")
 ###
@@ -432,7 +428,6 @@ from pathlib import Path
 # Dynamic File Path Solution
 API_PATH = pathlib.Path(__file__).parent.absolute()
 
-
 def relative_to_assets(path: str) -> Path:
     return API_PATH / Path(path)
 
@@ -485,7 +480,6 @@ def encryptSecurity():
     # Delete Data/security/KEY
     os.remove(relative_to_assets("Data/security/.KEY"))
 
-
 encryptSecurity()
 ###
 #! /usr/bin/env python3
@@ -500,16 +494,13 @@ import signal
 # Dynamic File Path Solution
 KEY_PATH = pathlib.Path(__file__).parent.absolute()
 
-
 def relative_to_assets(path: str) -> Path:
     return KEY_PATH / Path(path)
-
 
 def signal_handler(sig, frame):
     # If the program exits then remove important files.
     os.remove(relative_to_assets("Data/security/.tmp/.KEY"))
     exit()
-
 
 def decryptSecurity():
     key = "MTMy"  # up 255
@@ -527,7 +518,6 @@ def decryptSecurity():
 
     decEnc = open(relative_to_assets("Data/security/.tmp/.KEY"), "wb")
     decEnc.write(byteReader)
-
 
 try:
     # signal handler for "CTRL + C"
@@ -557,7 +547,8 @@ source .venv/bin/activate
 ###
 # -*- coding: utf-8 -*-
 # Print iterations progress
-def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
+def print_progress(iteration, total, prefix='',
+                   suffix='', decimals=1, bar_length=100):
     """
     Call in a loop to create terminal progress bar
     @params:
@@ -593,18 +584,14 @@ def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_lengt
         total       - Required  : total iterations (Int)
         prefix      - Optional  : prefix string (Str)import os
 ###
-vim ~/.bash_profile 
-* alias python = "/usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/bin/python3.7"
-source ~/.bash_profile
-###
 def base_encode(self, secret_value):
-  """
-  Return base64 encoded string
-  """
-  message_bytes = secret_value.encode('ascii')
-  base64_bytes = base64.b64encode(message_bytes)
-  base64_message = base64_bytes.decode('ascii')
-  return base64_message
+    """
+    Return base64 encoded string
+    """
+    message_bytes = secret_value.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    base64_message = base64_bytes.decode('ascii')
+    return base64_message
 ###
 # Default ignored files
 /shelf/
@@ -629,7 +616,8 @@ This is a comment. It is ignored by the Python interpreter.
 Variables
 Variables are used to store data in memory.
 In Python, you don't need to declare the data type of a variable.
-You can just assign a value to a variable and Python will figure out the data type.
+You can just assign a value to a variable and Python will
+figure out the data type.
 """
 ###
 def test_var_args(farg, *args):
@@ -706,11 +694,6 @@ def print_progress(iteration, total, prefix='', suffix='',
         total       - Required  : total iterations (Int)
         prefix      - Optional  : prefix string (Str)
 ###
-vim ~/.bash_profile 
-* alias python="/usr/local/Cellar/python/3.7.0/Frameworks/
-Python.framework/Versions/3.7/bin/python3.7"
-source ~/.bash_profile
-###
 # multiple initialization
 a, b = [], {}
 # swap
@@ -728,8 +711,6 @@ ENV = os.environ["ENVIRONMENT"]
 # settings
 settings = configparser.ConfigParser()
 BASEDIR = os.path.dirname(os.path.realpath(__file__))
-###
-if not resulttype_dict: raise Exception, &quot;This is my customised error message.&quot;
 ###
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(URL, 'lxml')
@@ -797,7 +778,7 @@ def cleanup_dir(dir):
 # path to the module; the rest of the list is made up of arguments that were passed to the
 # module at the beginning of execution. The sample code shows how to use the argv list to 
 # access command-line parameters passed to a Python module:
-['C:\\books\\python\\CH1\\code\\print_it.py',
+'C:\\books\\python\\CH1\\code\\print_it.py'
 ###
 import logging
 LOG_FORMAT = "%(asctime)s - %(module)s - %(levelname)s - %(message)s"
@@ -950,17 +931,14 @@ r=height/size
 c=width/size
 WHITE=color(255,255,255)
 ###
-print(hello world)
-###
 #Take the input from the user:   
 lower = int(input("Enter lower range: "))  
 upper = int(input("Enter upper range: "))  
     for num in range(lower,upper + 1):  
     if num > 1:  
-       for i in range(2,num):  
-           if (num % i) == 0:  
+        for i in range(2, num):  
+            if (num % i) == 0:  
                 break  
-       else:  
 ###
 balance_str = "3.3333333333"
 balance_int = int(float(balance_str))
@@ -970,7 +948,7 @@ print(type(balance_int))
 # Function to print binary number using recursion
 def convertToBinary(n):
     if n > 1:
-       convertToBinary(n//2)
+        convertToBinary(n//2)
     print(n % 2,end = '')
 # decimal number
 dec = 10
@@ -1019,10 +997,9 @@ lower = int(input("Enter lower range: "))
 upper = int(input("Enter upper range: "))  
     for num in range(lower,upper + 1):  
     if num > 1:  
-       for i in range(2,num):  
-           if (num % i) == 0:  
-                break  
-       else:  
+        for i in range(2,num):  
+            if (num % i) == 0:  
+                break    
 ###
 x=int(input("Enter No.1:")
 y=int(input("Enter No.2:")
@@ -1037,10 +1014,11 @@ for key in user:
     print(key)
     
 ###
-from oauth2client.service_account import ServiceAccountCredentials
-import gspread
-  
- scope = ['https://spreadsheets.google.com/feeds',
+from oauth2client.service_account import
+ServiceAccountCredentials
+
+import gspread  
+scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 ###
 # Default ignored files
@@ -1048,8 +1026,8 @@ import gspread
 /workspace.xml
 ###
 num = float(input("Enter a number: "))  
-    if num > 0:  
- print("{0} is a positive number".format(num))  
+if num > 0:  
+    print("{0} is a positive number".format(num))  
 elif num == 0:  
     print("{0} is zero".format(num))   
 else:  
@@ -1071,14 +1049,12 @@ else:
  ]
 }
 ###
-a = 'hello'    # 1)Create variable of type String
+a = 'hello' # Create variable of type String
 print(type(a))  # <class 'str'>
-print(a)
-# 2)Create variable of type Integer
+print(a) # Create variable of type Integer
 age = 25
 print(a, "is of type", type(a))  # <class 'int'>
-# 3)Create variable of type Float
-message = 2.0
+message = 2.0 # Create variable of type Float
 ###
 #!/usr/bin/python
 '''
@@ -1088,6 +1064,7 @@ from __future__ import print_function
 '''
 A function is a block of organized, reusable code that is used to
 perform a single, related action. Functions provide better modularity
+'''
 ###
 def dot_easy(a, b):
     assert len(a) == len(b), 'Error, lengths must match'
@@ -1099,21 +1076,21 @@ a, b = [1,2,3,4,5,6], [2,3,4,5,6,7]
 print(dot_easy(a,b))
 ###
 def stars(format, inp):
- starct = 0
- for c in format:
-  if c == '&':
-    starct += 1
- numct = 0
- for c in inp:
-  if not c == '.':
-    numct += 1
- if starct < numct:
+    starct = 0
+    for c in format:
+        if c == '&':
+            starct += 1
+    numct = 0
+    for c in inp:
+        if not c == '.':
+            numct += 1
 ###
 print ("This is a Quiz about the Kingdom Hearts videogame series.")
 print ("Answer each question with a 1, 2 or 3.")
 points = 0
 print(" ")
-print ("A.Including his own, how many hearts are inside of Sora as of Kingdom Hearts 2?")
+print ("A.Including his own, how many hearts are inside of
+        Sora as of Kingdom Hearts 2?")
 print ("1. 1")
 print ("2. 2")
 print ("3. 3")
@@ -1144,11 +1121,12 @@ pf = A().print_foo
 pf()
 ###
 # Full path to file
-os.path.join(os.path.dirname(os.path.realpath(__file__)), 'backups', 'file.zip')
+os.path.join(os.path.dirname(os.path.realpath(__file__)), 'backups',
+            'file.zip')
 def full_path(*args):
     """ full_path('dir', 'folder', 'file.txt') """
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)), *args)
-def full_path(filepath, *args):
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                        *args)
 ###
 """      turtle-example-suite:
          tdemo_round_dance.py
@@ -1198,7 +1176,8 @@ def premium_friday_check():
 import boto3
 import json
 client = boto3.client('kinesis')
-create_stream = client.create_stream(StreamName='GregorSamsa', ShardCount=150)
+create_stream = client.create_stream(StreamName='GregorSamsa',
+                                    ShardCount=150)
 streams = client.list_streams(Limit=100)
 ###
 import os
@@ -1238,19 +1217,19 @@ sentence = sentence.replace('quick', 'slow')
 print(sentence)
 ###
 class  Matrix:
-          def __init__(self, body, nrow, ncol):
+    def __init__(self, body, nrow, ncol):
         self.nrow = nrow
         self.ncol = ncol
         self.body = body
         def __add__(self, other):
             if self.nrow == other.nrow and self.ncol == other.ncol:
-                 FinalMatrix = []
+                FinalMatrix = []
 ###
 from math import *
 import matplotlib.pyplot as plt
 def f(x):
     return sin(x)*cos(x)
-     x0 = 1
+x0 = 1
 def g(h):
     return abs(f(x0+h) - f(x0)) / h
     
@@ -1282,9 +1261,7 @@ from gevent import monkey
 import gevent
 import requests
 monkey.patch_socket() 
-n = 100  # 并发数量
-def worker(i):
-    """执行任务"""
+n = 100  
 ###
 # Default ignored files
 /shelf/
@@ -1308,14 +1285,14 @@ fout_name = "<the name of excel file where save the data>"
 ###
 def lcm(x, y):  
     if x > y:  
-       greater = x  
+        greater = x  
     else:  
-       greater = y  
-  while(True):  
-       if((greater % x == 0) and (greater % y == 0)):  
-           lcm = greater  
-           break  
-       greater += 1  
+        greater = y  
+  while(True):
+    if((greater % x == 0) and (greater % y == 0)):  
+        lcm = greater  
+        break  
+    greater += 1  
 ###
 # Python program to check if the input number is odd or even.
 # A number is even if division by 2 gives a remainder of 0.
@@ -1354,7 +1331,7 @@ myPresentation=None
 ###
 num = int(input("Enter a number: "))  
 sum = 0  
-temp = num  
+temp = 0  
 while temp > 0:  
     digit = temp % 10  
     sum += digit ** 3  
@@ -1366,9 +1343,8 @@ if num < 0:
 else:  
     sum = 0  
     # use while loop to iterate un till zero  
-    while(num > 0):  
-        sum += num  
-        num -= 1  
+    for i in range(num) :
+        sum += num
 ###
 def recur_fibo(n):  
     if n <= 1:  
@@ -1397,7 +1373,8 @@ except (TypeError, ValueError) as e:
 ###
 from datetime import datetime
 my_date_string = "Mar 11 2011 11:31AM"
-datetime_object = datetime.strptime(my_date_string, '%b %d %Y %I:%M%p')
+datetime_object = datetime.strptime(my_date_string,
+                                    '%b %d %Y %I:%M%p')
 print(type(datetime_object))
 print(datetime_object)
 ###
@@ -1429,7 +1406,8 @@ def countdown(time_sec):
 ## Performance Testing in Python
 #performs 1,000,000 times, then returns average
 import timeit
-timeit.timeit("[(a, b) for a in (1, 3, 5) for b in (2, 4, 6)]", number=1000)
+timeit.timeit("[(a, b) for a in (1, 3, 5) for b in (2, 4, 6)]",
+            number=1000)
 #TimeIt with Custom Functions
 from timeit import Timer
 t = Timer(lambda: function(n))
@@ -1482,9 +1460,9 @@ min = 1
 max = 6
 roll_again = "yes"
 while roll_again == "yes" or roll_again == "y":
-     print "Rolling the dices..."
-     print "The values are...."
-     print random.randint(min, max)
+    print "Rolling the dices..."
+    print "The values are...."
+    print random.randint(min, max)
 ###
 a = "helLo WorLd"
 a.capitilize()
@@ -1517,9 +1495,11 @@ def CreateR():
 import random as rd
 import numpy as np 
 # choose the words
-word = ["tennis", "basketball", "baseball", "softball", "volleyball", "track",
-        "football", "soccer", "golf", "cricket", "rugby", "lacrosse", "badminton",
-        "bowling", "boxing", "hockey", "swimming", "archery", "fencing", "ultimate"]
+word = ["tennis", "basketball", "baseball", "softball",
+        "volleyball", "track", "football", "soccer", 
+        "golf", "cricket", "rugby", "lacrosse", "badminton",
+        "bowling", "boxing", "hockey", "swimming", "archery",
+        "fencing", "ultimate"]
 play = raw_input("Do you want to play the game? Answer Yes or No")
 while play == "Yes" or play == "yes" or play == " Yes" or play == " yes":
  word1 = rd.choice(word) # this is the word they are guessing
@@ -1554,12 +1534,12 @@ git remote add origin https://github.com/freto85/Hola.git
 git push -u origin master
 ###
 def checkOnError(func):
-  def return_new_func():
-    try:
-      return func()
-    except:
-        print("Error")
-  return return_new_func
+    def return_new_func():
+        try:
+            return func()
+        except:
+            print("Error")
+    return return_new_func
 @checkOnError
 def greet():
 ###
@@ -1663,8 +1643,9 @@ async def auth_middleware(request: Request, call_next):
     def getAuth(self, email, password):
         auth_url = join(self.url, 'players', 'auth')
         resp=unirest.post('http://' + auth_url,
-        headers={'Accept':'application/json'}, params={'email':email,'password':password},
-        )
+                        headers={'Accept':'application/json'},
+                        params={'email':email,'password':password},
+                        )
         return json.dumps(resp.body)
 ###
 import os
@@ -1686,11 +1667,11 @@ TO INSTALL MYSQL DB,FIRST WE NEED TO INSTALL DEV LIBRARIES
 #! /usr/bin/env python
 # -*-coding:utf-8-*-
 def main():
-  i = input()
-  while True:
-    i = i*i
-    if i >= 10^100:
-        return False
+    i = input()
+    while True:
+        i = i*i
+        if i >= 10^100:
+            return False
 ###
 def break_words(stuff):
     """This function will break up words for us."""
@@ -1703,7 +1684,8 @@ def print_first_word(words):
 ###
 years = [str(item.active_from.year) for item in news_list]
 dates = list(enumerate(years, start=1))
-result_years = [key for key,group in itertools.groupby(dates, key=lambda x: x[1][:11])]
+result_years = [key for key,group in itertools.groupby(dates,
+                                                        key=lambda x: x[1][:11])]
 ###
 # Memory Puzzle
 # By Al Sweigart al@inventwithpython.com
@@ -1771,7 +1753,8 @@ you don’t need to use the command python3 to open Python 3.
 # python gen code sample 
 # from https://docs.python.org/2/library/htmlparser.html
 class View:
-    def __init__(self, output_name = "out.html"):
+    def __init__(self, 
+                output_name = "out.html"):
         self.output = codecs.open(output_name, 'w', encoding='utf-8')
         self.var = {}
 ###
@@ -2013,9 +1996,7 @@ n = int(input())
 p = int(input())
 a = []
 for j in range(n):
- a.append(j+1)
-i = 0
-k = 0
+    a.append(j+1)
 ###
 print("Hello World")
 ###
@@ -2023,11 +2004,10 @@ print('what is your %s? it is %s' %(q,a))
 ###
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-###################
+###
 # usage: ./run_length.py aaabbbbbcccdddefffggggg
-###################
+###
 import sys
-# 引数を配列に格納
 num = sys.argv[1]
 ###
 a = int(input())
@@ -2037,7 +2017,7 @@ print (a-b)
 print (a*b)
 ###
 def for_incorrect_answer():
-    # For an incorrect answer itwill work and print your answer is incorrect.
+    # For an incorrect answer it will work and print your answer is incorrect.
     print "Your answer is incorrect!"
 ###
 from collections import namedtuple
@@ -2070,17 +2050,7 @@ from databases import Database
 user=xx
 pass=xx
 port=xx
-hosts= [....] # 500台 db列表
-###
-# This comment was added automatically to allow this file to save.
-# You'll be able to remove it after adding text to the file.
-tanfente a une courbe
-Equation de la tangente de la forme y=mx+p
-Dérterminons m:
-On sait que m est le coefficient directeur de la droite
-La tangente a pour coef directeur : f'(a) donc m = f'(a)
-y=f'(a)x+p
-Déterminons p:
+hosts= [....] # 500
 ###
 import os
 fordestination = "destination_name"
@@ -2089,7 +2059,6 @@ def renameFiles(path, new_name , depth=99):
     if depth < 0: return
     if os.path.isdir(path) and not os.path.islink(path):
         ind = 1
-        for file in os.listdir(path):
 ###
 import os
 import binascii
@@ -2158,17 +2127,6 @@ def tokenizar(texto):
 nltk.download('stopwords')
 stopwords = nltk.corpus.stopwords.words('portuguese')
 ###
-{% extends "base.html" %}
-{% block content %}
-<h1>Halaman 3</h1>
-<h1>Hi, {{ user.nickname }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
-{% endblock %}
-<link rel="stylesheet" href="CSS.css" type="text/css"> 
-<style>
-###
 a=input()
 N = int(a)
 if N%2 != 0 or N>=6 and N<=20:
@@ -2192,11 +2150,11 @@ print i.foo
 import urllib2
 urlString = 'http://pshmn.com/eaFnY'
 try:
- handle = urllib2.urlopen(urlString)
- handle.read()
- handle.close()
+    handle = urllib2.urlopen(urlString)
+    handle.read()
+    handle.close()
 except IOError:
- print "log error"
+    print "log error"
 ###
 import psycopg2
 dsn = dict(
@@ -2207,16 +2165,6 @@ dsn = dict(
  user='username'
 )
 conn = psycopg2.connect(**dsn)
-###
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Apr 05 23:02:24 2015
-@author: Understand
-"""
-'''
-统计任意一个英文文件里的单词数目
-'''
-import io
 ###
 def is_in(x, l: list) -> bool:
     for i in l:
@@ -2241,14 +2189,10 @@ s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 Python 3.4.4 (v3.4.4:737efcadf5a6, Dec 20 2015, 19:28:18) 
 [MSC v.1600 32 bit (Intel)] on win32
 Type "copyright", "credits" or "license()" for more information.
->>> l=[1,4,6,9,4,6,2,3,0,1]
->>> len(l)
-10
->>> l.append(7)
->>> l
-[1, 4, 6, 9, 4, 6, 2, 3, 0, 1, 7]
->>> l.sort()
->>> l
+l=[1,4,6,9,4,6,2,3,0,1]
+len(l) # Output: 10
+l.append(7)
+# Output [1, 4, 6, 9, 4, 6, 2, 3, 0, 1, 7]
 ###
 from abc import ABCMeta, abstractmethod
 class A(metaclass = ABCMeta):
